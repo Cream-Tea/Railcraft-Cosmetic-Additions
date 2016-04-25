@@ -7,6 +7,8 @@ import mods.railcraft.common.blocks.aesthetics.post.BlockPostBase;
 import mods.railcraft_cos.common.core.ClientProxy;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
+import net.minecraft.block.BlockSign;
+import net.minecraft.block.BlockSkull;
 import net.minecraft.block.BlockWall;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -134,14 +136,16 @@ public class RailcraftPlatformRenderer implements ISimpleBlockRenderingHandler {
 	{
 		if (world.getBlock(x, y + 1, z) instanceof BlockFence) return true;
 		else if ((world.getBlock(x, y+1, z) instanceof BlockPostBase) && (world.getBlock(x, y+2, z) instanceof BlockPostBase)) return true;
-
+		else if (world.getBlock(x, y + 1, z) instanceof BlockRailcraftSignBasic) return true;
+		else if (world.getBlock(x, y + 1, z) instanceof BlockRailcraftCosSignalBase) return true;
+		else if (world.getBlock(x, y + 1, z) instanceof BlockSign) return true;
 		else return false;
 	}
 	
 	public boolean checkBlockAboveForWall(IBlockAccess world, int x,int y,int z)
 	{
 		if (world.getBlock(x, y + 1, z) instanceof BlockWall) return true;
-		
+		else if (world.getBlock(x, y + 1, z) instanceof BlockSkull) return true;
 		else return false;
 	}
 }
