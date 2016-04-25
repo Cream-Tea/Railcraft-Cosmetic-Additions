@@ -134,18 +134,21 @@ public class RailcraftPlatformRenderer implements ISimpleBlockRenderingHandler {
 	
 	public boolean checkBlockAbove(IBlockAccess world, int x,int y,int z)
 	{
+		Block block = world.getBlock(x, y+1, z);
+		Block blockAbove = world.getBlock(x, y+2, z);
 		if (world.getBlock(x, y + 1, z) instanceof BlockFence) return true;
-		else if ((world.getBlock(x, y+1, z) instanceof BlockPostBase) && (world.getBlock(x, y+2, z) instanceof BlockPostBase)) return true;
-		else if (world.getBlock(x, y + 1, z) instanceof BlockRailcraftSignBasic) return true;
-		else if (world.getBlock(x, y + 1, z) instanceof BlockRailcraftCosSignalBase) return true;
-		else if (world.getBlock(x, y + 1, z) instanceof BlockSign) return true;
+		else if ((block instanceof BlockPostBase) && (blockAbove instanceof BlockPostBase)) return true;
+		else if (block instanceof BlockRailcraftSignBasic) return true;
+		else if (block instanceof BlockRailcraftCosSignalBase) return true;
+		else if ((block instanceof BlockSign) && Block.getIdFromBlock(block) == 63) return true;
 		else return false;
 	}
 	
 	public boolean checkBlockAboveForWall(IBlockAccess world, int x,int y,int z)
 	{
-		if (world.getBlock(x, y + 1, z) instanceof BlockWall) return true;
-		else if (world.getBlock(x, y + 1, z) instanceof BlockSkull) return true;
+		Block block = world.getBlock(x, y+1, z);
+		if (block instanceof BlockWall) return true;
+		else if (block instanceof BlockSkull) return true;
 		else return false;
 	}
 }
