@@ -3,9 +3,7 @@ package mods.railcraft_cos.common.blocks;
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import mods.railcraft.common.blocks.aesthetics.post.BlockPost;
 import mods.railcraft.common.blocks.aesthetics.post.BlockPostBase;
-import mods.railcraft.common.blocks.aesthetics.post.BlockPostMetal;
 import mods.railcraft_cos.common.core.ClientProxy;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
