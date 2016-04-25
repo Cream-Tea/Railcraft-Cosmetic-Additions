@@ -3,6 +3,7 @@ package mods.railcraft_cos.common.core;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
+import mods.railcraft_cos.common.blocks.BlockRailcraftCos;
 import mods.railcraft_cos.common.blocks.EnumCosSignalType;
 import mods.railcraft_cos.common.blocks.EnumSignBasicType;
 import mods.railcraft_cos.common.blocks.RailcraftCosTrackRenderer;
@@ -34,19 +35,19 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRailcraftCosSignalDistant.class, new TESRCosSignalBase());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRailcraftSignBasic.class, new TESRSignBasic());
 		
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Railcraft_Cos.SignalBanner),
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockRailcraftCos.SignalBanner),
 				(IItemRenderer) new ItemRendererRailcraftCosSignalBase(EnumCosSignalType.BANNER_REPEATER));
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Railcraft_Cos.SignalSemaphore),
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockRailcraftCos.SignalSemaphore),
 				(IItemRenderer) new ItemRendererRailcraftCosSignalBase(EnumCosSignalType.SEMAPHORE_STOP));
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Railcraft_Cos.SignalSemaphoreRepeater),
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockRailcraftCos.SignalSemaphoreRepeater),
 				(IItemRenderer) new ItemRendererRailcraftCosSignalBase(EnumCosSignalType.SEMAPHORE_REPEATER));
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Railcraft_Cos.SignWhistle),
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockRailcraftCos.SignWhistle),
 				(IItemRenderer) new ItemRendererRailcraftSignBasic(EnumSignBasicType.WHISTLE));
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Railcraft_Cos.SignMPH5),
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockRailcraftCos.SignMPH5),
 				(IItemRenderer) new ItemRendererRailcraftSignBasic(EnumSignBasicType.MPH5));
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Railcraft_Cos.SignClearance),
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockRailcraftCos.SignClearance),
 				(IItemRenderer) new ItemRendererRailcraftSignBasic(EnumSignBasicType.CLEARANCE));
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Railcraft_Cos.SignRefuge),
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockRailcraftCos.SignRefuge),
 				(IItemRenderer) new ItemRendererRailcraftSignBasic(EnumSignBasicType.REFUGE));
 	}
 }

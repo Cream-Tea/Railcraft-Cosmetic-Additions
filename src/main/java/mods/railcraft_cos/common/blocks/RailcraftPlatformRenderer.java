@@ -136,7 +136,7 @@ public class RailcraftPlatformRenderer implements ISimpleBlockRenderingHandler {
 	{
 		Block block = world.getBlock(x, y+1, z);
 		Block blockAbove = world.getBlock(x, y+2, z);
-		if (world.getBlock(x, y + 1, z) instanceof BlockFence) return true;
+		if (block instanceof BlockFence) return true;
 		else if ((block instanceof BlockPostBase) && (blockAbove instanceof BlockPostBase)) return true;
 		else if (block instanceof BlockRailcraftSignBasic) return true;
 		else if (block instanceof BlockRailcraftCosSignalBase) return true;
