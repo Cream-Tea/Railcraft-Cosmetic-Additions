@@ -1,10 +1,8 @@
 package mods.railcraft_cos.common.core;
 
-import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.common.MinecraftForge;
 import mods.railcraft_cos.common.blocks.EnumCosSignalType;
 import mods.railcraft_cos.common.blocks.EnumSignBasicType;
 import mods.railcraft_cos.common.blocks.RailcraftCosTrackRenderer;
@@ -24,8 +22,9 @@ public class ClientProxy extends CommonProxy {
 	public static int railcraftPlatformRenderer;
 	public static int railcraftCosTrackRenderer;
 	
-	public void registerRendering() {
-		
+	@Override
+	public void registerRendering() 
+	{
 		railcraftPlatformRenderer = RenderingRegistry.getNextAvailableRenderId();
 		railcraftCosTrackRenderer = RenderingRegistry.getNextAvailableRenderId();
 		
