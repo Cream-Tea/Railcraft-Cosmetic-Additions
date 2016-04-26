@@ -25,7 +25,7 @@ public class BlockRailcraftCosSignalBase extends BlockContainer {
 		super(Material.iron);
 		setBlockName(localizedname);
 		setCreativeTab(CreativeTabs.tabTransport);
-		setBlockBounds(0.2F, 0.0F, 0.2F, 0.8F, 0.9F, 0.8F);
+		setBlockBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.9F, 0.75F);
 		setBlockTextureName(Railcraft_Cos.MODID + ":" + "cossignalbase");
 		setHardness(1.0F);
 		setResistance(5.0F);

@@ -23,7 +23,7 @@ public class BlockRailcraftSignBasic extends BlockContainer {
 		super(Material.iron);
 		setBlockName(localizedname);
 		setCreativeTab(Railcraft_Cos.tabRailcraftCos);
-		setBlockBounds(0.2F, 0.0F, 0.2F, 0.8F, 0.9F, 0.8F);
+		setBlockBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.9F, 0.75F);
 		setBlockTextureName(Railcraft_Cos.MODID + ":" + "cossignalbase");
 		setHardness(0.3F);
 		setResistance(3.0F);
