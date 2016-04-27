@@ -63,16 +63,104 @@ public class RailcraftPlatformRenderer implements ISimpleBlockRenderingHandler {
 		if(((BlockRailcraftPlatform) block).getPlatformType() != 3) {
 			switch(world.getBlockMetadata(x, y, z)) {
 			case 0:
-				renderer.setRenderBounds(0.0D, 0.0D, 0.2D, 1.0D, 0.75D, 1.0D);
+				if (world.getBlock(x, y, z+1) == block && world.getBlockMetadata(x, y, z+1) == 1)
+				{
+					renderer.setRenderBounds(0.0D, 0.0D, 0.2D, 0.8D, 0.75D, 1.0D);
+				}
+				else if (world.getBlock(x, y, z+1) == block && world.getBlockMetadata(x, y, z+1) == 3)
+				{
+					renderer.setRenderBounds(0.2D, 0.0D, 0.2D, 1.0D, 0.75D, 1.0D);
+				}
+				else
+				{
+					renderer.setRenderBounds(0.0D, 0.0D, 0.2D, 1.0D, 0.75D, 1.0D);
+				}
+				renderer.renderStandardBlock(block, x, y, z);
+								
+				if (world.getBlock(x, y, z-1) == block && world.getBlockMetadata(x, y, z-1) == 1)
+				{
+					renderer.setRenderBounds(0.0D, 0.0D, 0.0D, 0.8D, 0.75D, 0.2D);
+				}
+				else if (world.getBlock(x, y, z-1) == block && world.getBlockMetadata(x, y, z-1) == 3)
+				{
+					renderer.setRenderBounds(0.2D, 0.0D, 0.0D, 1.0D, 0.75D, 0.2D);
+				}
+				renderer.renderStandardBlock(block, x, y, z);
 				break;
-			case 1:
-				renderer.setRenderBounds(0.0D, 0.0D, 0.0D, 0.8D, 0.75D, 1.0D);
+			case 1:								
+				if (world.getBlock(x-1, y, z) == block && world.getBlockMetadata(x-1, y, z) == 0)
+				{
+					renderer.setRenderBounds(0.0D, 0.0D, 0.2D, 0.8D, 0.75D, 1.0D);
+				}
+				else if (world.getBlock(x-1, y, z) == block && world.getBlockMetadata(x-1, y, z) == 2)
+				{
+					renderer.setRenderBounds(0.0D, 0.0D, 0.0D, 0.8D, 0.75D, 0.8D);
+				}
+				else
+				{
+					renderer.setRenderBounds(0.0D, 0.0D, 0.0D, 0.8D, 0.75D, 1.0D);
+				}
+				renderer.renderStandardBlock(block, x, y, z);
+								
+				if (world.getBlock(x+1, y, z) == block && world.getBlockMetadata(x+1, y, z) == 0)
+				{
+					renderer.setRenderBounds(0.8D, 0.0D, 0.2D, 1.0D, 0.75D, 1.0D);
+				}
+				else if (world.getBlock(x+1, y, z) == block && world.getBlockMetadata(x+1, y, z) == 2)
+				{
+					renderer.setRenderBounds(0.8D, 0.0D, 0.0D, 1.0D, 0.75D, 0.8D);
+				}
+				renderer.renderStandardBlock(block, x, y, z);
 				break;
 			case 2:
-				renderer.setRenderBounds(0.0D, 0.0D, 0.0D, 1.0D, 0.75D, 0.8D);
+				if (world.getBlock(x, y, z-1) == block && world.getBlockMetadata(x, y, z-1) == 1)
+				{
+					renderer.setRenderBounds(0.0D, 0.0D, 0.0D, 0.8D, 0.75D, 0.8D);
+				}
+				else if (world.getBlock(x, y, z-1) == block && world.getBlockMetadata(x, y, z-1) == 3)
+				{
+					renderer.setRenderBounds(0.2D, 0.0D, 0.0D, 1.0D, 0.75D, 0.8D);
+				}
+				else
+				{
+					renderer.setRenderBounds(0.0D, 0.0D, 0.0D, 1.0D, 0.75D, 0.8D);
+				}
+				renderer.renderStandardBlock(block, x, y, z);
+								
+				if (world.getBlock(x, y, z+1) == block && world.getBlockMetadata(x, y, z+1) == 1)
+				{
+					renderer.setRenderBounds(0.0D, 0.0D, 0.8D, 0.8D, 0.75D, 1.0D);
+				}
+				else if (world.getBlock(x, y, z+1) == block && world.getBlockMetadata(x, y, z+1) == 3)
+				{
+					renderer.setRenderBounds(0.2D, 0.0D, 0.8D, 1.0D, 0.75D, 1.0D);
+				}
+				renderer.renderStandardBlock(block, x, y, z);
 				break;
 			case 3:
-				renderer.setRenderBounds(0.2D, 0.0D, 0.0D, 1.0D, 0.75D, 1.0D);
+				if (world.getBlock(x+1, y, z) == block && world.getBlockMetadata(x+1, y, z) == 0)
+				{
+					renderer.setRenderBounds(0.2D, 0.0D, 0.2D, 1.0D, 0.75D, 1.0D);
+				}
+				else if (world.getBlock(x+1, y, z) == block && world.getBlockMetadata(x+1, y, z) == 2)
+				{
+					renderer.setRenderBounds(0.2D, 0.0D, 0.0D, 1.0D, 0.75D, 0.8D);
+				}
+				else
+				{
+					renderer.setRenderBounds(0.2D, 0.0D, 0.0D, 1.0D, 0.75D, 1.0D);
+				}
+				renderer.renderStandardBlock(block, x, y, z);
+								
+				if (world.getBlock(x-1, y, z) == block && world.getBlockMetadata(x-1, y, z) == 0)
+				{
+					renderer.setRenderBounds(0.0D, 0.0D, 0.2D, 0.2D, 0.75D, 1.0D);
+				}
+				else if (world.getBlock(x-1, y, z) == block && world.getBlockMetadata(x-1, y, z) == 2)
+				{
+					renderer.setRenderBounds(0.0D, 0.0D, 0.0D, 0.2D, 0.75D, 0.8D);
+				}
+				renderer.renderStandardBlock(block, x, y, z);
 				break;
 			}
 		} else {
@@ -104,16 +192,105 @@ public class RailcraftPlatformRenderer implements ISimpleBlockRenderingHandler {
 		if(((BlockRailcraftPlatform) block).getPlatformType() == 3) {
 			switch(world.getBlockMetadata(x, y, z)) {
 			case 0:
-				renderer.setRenderBounds(0.0D, 0.75D, 0.25D, 1.0D, 1.0D, 1.0D);	
+				if (world.getBlock(x, y, z+1) == block && world.getBlockMetadata(x, y, z+1) == 1)
+				{
+					renderer.setRenderBounds(0.0D, 0.75D, 0.25D, 0.75D, 1.0D, 1.0D);
+				}
+				else if (world.getBlock(x, y, z+1) == block && world.getBlockMetadata(x, y, z+1) == 3)
+				{
+					renderer.setRenderBounds(0.25D, 0.75D, 0.25D, 1.0D, 1.0D, 1.0D);
+				}
+				else
+				{
+					renderer.setRenderBounds(0.0D, 0.75D, 0.25D, 1.0D, 1.0D, 1.0D);
+				}
+				renderer.renderStandardBlock(block, x, y, z);
+				
+				if (world.getBlock(x, y, z-1) == block && world.getBlockMetadata(x, y, z-1) == 1)
+				{
+					renderer.setRenderBounds(0.0D, 0.75D, 0.0D, 0.75D, 1.0D, 0.25D);
+				}
+				else if (world.getBlock(x, y, z-1) == block && world.getBlockMetadata(x, y, z-1) == 3)
+				{
+					renderer.setRenderBounds(0.25D, 0.75D, 0.0D, 1.0D, 1.0D, 0.25D);
+				}
+				renderer.renderStandardBlock(block, x, y, z);
 				break;
 			case 1:
-				renderer.setRenderBounds(0.0D, 0.75D, 0.0D, 0.75D, 1.0D, 1.0D);
+				if (world.getBlock(x-1, y, z) == block && world.getBlockMetadata(x-1, y, z) == 0)
+				{
+					renderer.setRenderBounds(0.0D, 0.75D, 0.25D, 0.75D, 1.0D, 1.0D);
+				}
+				else if (world.getBlock(x-1, y, z) == block && world.getBlockMetadata(x-1, y, z) == 2)
+				{
+					renderer.setRenderBounds(0.0D, 0.75D, 0.0D, 0.75D, 1.0D, 0.75D);
+				}
+				else
+				{
+					renderer.setRenderBounds(0.0D, 0.75D, 0.0D, 0.75D, 1.0D, 1.0D);
+				}
+				renderer.renderStandardBlock(block, x, y, z);
+								
+				if (world.getBlock(x+1, y, z) == block && world.getBlockMetadata(x+1, y, z) == 0)
+				{
+					renderer.setRenderBounds(0.75D, 0.0D, 0.25D, 1.0D, 0.75D, 1.0D);
+				}
+				else if (world.getBlock(x+1, y, z) == block && world.getBlockMetadata(x+1, y, z) == 2)
+				{
+					renderer.setRenderBounds(0.75D, 0.0D, 0.0D, 1.0D, 0.75D, 0.75D);
+				}
+				renderer.renderStandardBlock(block, x, y, z);
 				break;
 			case 2:
-				renderer.setRenderBounds(0.0D, 0.75D, 0.0D, 1.0D, 1.0D, 0.75D);
+				if (world.getBlock(x, y, z-1) == block && world.getBlockMetadata(x, y, z-1) == 1)
+				{
+					renderer.setRenderBounds(0.0D, 0.75D, 0.0D, 0.75D, 1.0D, 0.75D);
+				}
+				else if (world.getBlock(x, y, z-1) == block && world.getBlockMetadata(x, y, z-1) == 3)
+				{
+					renderer.setRenderBounds(0.25D, 0.75D, 0.0D, 1.0D, 1.0D, 0.75D);
+				}
+				else
+				{
+					renderer.setRenderBounds(0.0D, 0.75D, 0.0D, 1.0D, 1.0D, 0.75D);
+				}
+				renderer.renderStandardBlock(block, x, y, z);
+								
+				if (world.getBlock(x, y, z+1) == block && world.getBlockMetadata(x, y, z+1) == 1)
+				{
+					renderer.setRenderBounds(0.0D, 0.75D, 0.75D, 0.75D, 1.0D, 1.0D);
+				}
+				else if (world.getBlock(x, y, z+1) == block && world.getBlockMetadata(x, y, z+1) == 3)
+				{
+					renderer.setRenderBounds(0.25D, 0.75D, 0.75D, 1.0D, 1.0D, 1.0D);
+				}
+				renderer.renderStandardBlock(block, x, y, z);
 				break;
 			case 3:
-				renderer.setRenderBounds(0.25D, 0.75D, 0.0D, 1.0D, 1.0D, 1.0D);
+				if (world.getBlock(x+1, y, z) == block && world.getBlockMetadata(x+1, y, z) == 0)
+				{
+					renderer.setRenderBounds(0.25D, 0.75D, 0.25D, 1.0D, 1.0D, 1.0D);
+				}
+				else if (world.getBlock(x+1, y, z) == block && world.getBlockMetadata(x+1, y, z) == 2)
+				{
+					renderer.setRenderBounds(0.25D, 0.75D, 0.0D, 1.0D, 1.0D, 0.75D);
+				}
+				else
+				{
+					renderer.setRenderBounds(0.25D, 0.75D, 0.0D, 1.0D, 1.0D, 1.0D);
+				}
+				renderer.renderStandardBlock(block, x, y, z);
+								
+				if (world.getBlock(x-1, y, z) == block && world.getBlockMetadata(x-1, y, z) == 0)
+				{
+					renderer.setRenderBounds(0.0D, 0.75D, 0.25D, 0.25D, 1.0D, 1.0D);
+				}
+				else if (world.getBlock(x-1, y, z) == block && world.getBlockMetadata(x-1, y, z) == 2)
+				{
+					renderer.setRenderBounds(0.0D, 0.75D, 0.0D, 0.25D, 1.0D, 0.75D);
+				}
+				renderer.renderStandardBlock(block, x, y, z);
+				break;
 			}
 			renderer.renderStandardBlock(block, x, y, z);
 		}
