@@ -2,14 +2,6 @@ package mods.railcraft_cos.common.tileentities;
 
 import com.mojang.authlib.GameProfile;
 
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import mods.railcraft.api.signals.IControllerTile;
 import mods.railcraft.api.signals.ISignalBlockTile;
 import mods.railcraft.api.signals.SignalAspect;
@@ -21,18 +13,40 @@ import mods.railcraft_cos.common.blocks.BlockRailcraftCosSignalBase;
 import mods.railcraft_cos.common.blocks.EnumCosSignalType;
 import mods.railcraft_cos.common.core.Railcraft_Cos;
 import mods.railcraft_cos.common.models.CosSignalSemaphoreModel;
-import mods.railcraft_cos.common.models.CosSignalSemaphoreModelClear;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 
 public class TileEntityRailcraftCosSignalBlock extends TileEntity implements IControllerTile, ISignalBlockTile {
 	
 	EnumCosSignalType signalType;
 	private boolean alternate;
+	private boolean quadrant;
 	
 	private final SimpleSignalController controller = new SimpleSignalController(getLocalizationTag(), this);
 	private final SignalBlock signalBlock = new SignalBlockSimple(getLocalizationTag(), this);
 	
 	public boolean getState() {
 		return alternate;
+	}
+	
+	public boolean getQuadrant()
+	{
+		return quadrant;
+	}
+	
+	public void switchQuadrant()
+	{
+		boolean q = getQuadrant();
+		System.out.println(q);
+		quadrant = q ? false : true;
+		System.out.println(q);
+		getWorld().markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 	
 	public EnumCosSignalType getSignalType() {
@@ -49,13 +63,16 @@ public class TileEntityRailcraftCosSignalBlock extends TileEntity implements ICo
 		}
 	}
 	
-	public ModelBase getModel() {
+	public ModelBase getModel() 
+	{
+		int quad = getQuadrant() ? 1 : -1;
 		switch(getSignalType()) {
 		case SEMAPHORE_STOP:
-			if(!getState()) {
-				return new CosSignalSemaphoreModel();
+			if(!getState()) 
+			{
+				return new CosSignalSemaphoreModel(0);
 			} else {
-				return new CosSignalSemaphoreModelClear();
+				return new CosSignalSemaphoreModel(quad);
 			}
 		default:
 			return null;
@@ -73,6 +90,7 @@ public class TileEntityRailcraftCosSignalBlock extends TileEntity implements ICo
             signalBlock.writeToNBT(data);
             controller.writeToNBT(data);
             data.setBoolean("alt", alternate);
+            data.setBoolean("quadrant", quadrant);
         } catch (Throwable er) {
             //Game.logThrowable(Level.ERROR, "Signal Tile crashed on write.", 10, er);
         }
@@ -87,6 +105,11 @@ public class TileEntityRailcraftCosSignalBlock extends TileEntity implements ICo
             boolean b = data.getBoolean("alt");
             if(alternate != b) {
             	alternate = b;
+            }
+            boolean q = data.getBoolean("quadrant");
+            if (quadrant != q)
+            {
+            	quadrant = q;
             }
         } catch (Throwable er) {
             //Game.logThrowable(Level.ERROR, "Signal Tile crashed on read.", 10, er);

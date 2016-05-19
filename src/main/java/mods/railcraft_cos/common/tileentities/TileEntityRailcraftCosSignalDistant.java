@@ -1,13 +1,5 @@
 package mods.railcraft_cos.common.tileentities;
 
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import mods.railcraft.api.signals.IReceiverTile;
 import mods.railcraft.api.signals.SignalAspect;
 import mods.railcraft.api.signals.SignalController;
@@ -18,16 +10,36 @@ import mods.railcraft_cos.common.blocks.EnumCosSignalType;
 import mods.railcraft_cos.common.core.Railcraft_Cos;
 import mods.railcraft_cos.common.models.CosSignalBannerModel;
 import mods.railcraft_cos.common.models.CosSignalSemaphoreModel;
-import mods.railcraft_cos.common.models.CosSignalSemaphoreModelClear;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 
 public class TileEntityRailcraftCosSignalDistant extends TileEntity implements IReceiverTile {
 	
 	private boolean alternate;
+	private boolean quadrant;
 	
 	private final SimpleSignalReceiver receiver = new SimpleSignalReceiver("Distant Signal", this);
 	
 	public boolean getState() {
 		return alternate;
+	}
+	
+	public boolean getQuadrant()
+	{
+		return quadrant;
+	}
+	
+	public void switchQuadrant()
+	{
+		boolean q = getQuadrant();
+		quadrant = q ? false : true;
+		getWorld().markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 	
 	public EnumCosSignalType getSignalType() {
@@ -50,18 +62,22 @@ public class TileEntityRailcraftCosSignalDistant extends TileEntity implements I
 		}
 	}
 	
-	public ModelBase getModel() {
-		switch(getSignalType()) {
-		case BANNER_REPEATER:
-			return new CosSignalBannerModel();
-		case SEMAPHORE_REPEATER:
-			if(!getState()) {
-				return new CosSignalSemaphoreModel();
-			} else {
-				return new CosSignalSemaphoreModelClear();
-			}
-		default:
-			return null;
+	public ModelBase getModel() 
+	{
+		int quad = getQuadrant() ? 1 : -1;
+		
+		switch(getSignalType()) 
+			{	case BANNER_REPEATER: return new CosSignalBannerModel();
+				case SEMAPHORE_REPEATER:
+					if(!getState()) 
+					{
+						return new CosSignalSemaphoreModel(0);
+					} 
+					else 
+					{
+						return new CosSignalSemaphoreModel(quad);
+					}
+				default: return null;
 		}
 	}
 
@@ -75,6 +91,7 @@ public class TileEntityRailcraftCosSignalDistant extends TileEntity implements I
 
         receiver.writeToNBT(data);
         data.setBoolean("alt", alternate);
+        data.setBoolean("quadrant", quadrant);
     }
 
     @Override
@@ -85,6 +102,11 @@ public class TileEntityRailcraftCosSignalDistant extends TileEntity implements I
         boolean b = data.getBoolean("alt");
         if(alternate != b) {
         	alternate = b;
+        }
+        boolean q = data.getBoolean("quadrant");
+        if (quadrant != q)
+        {
+        	quadrant = q;
         }
         
     }

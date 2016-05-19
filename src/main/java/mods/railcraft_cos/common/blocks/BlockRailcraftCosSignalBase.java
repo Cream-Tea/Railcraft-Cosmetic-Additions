@@ -2,6 +2,7 @@ package mods.railcraft_cos.common.blocks;
 
 import java.util.Random;
 
+import mods.railcraft.common.items.ItemCrowbar;
 import mods.railcraft_cos.common.core.Railcraft_Cos;
 import mods.railcraft_cos.common.tileentities.TileEntityRailcraftCosSignalBlock;
 import mods.railcraft_cos.common.tileentities.TileEntityRailcraftCosSignalDistant;
@@ -10,6 +11,7 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -41,6 +43,30 @@ public class BlockRailcraftCosSignalBase extends BlockContainer {
 		}
 		
 	}
+	
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float sideX, float sideY, float sideZ)
+    {	
+		if (player.getCurrentEquippedItem() != null)
+		{	
+			Item item = player.getCurrentEquippedItem().getItem();
+			if (item != null && item instanceof ItemCrowbar)
+			{
+				TileEntity te = world.getTileEntity(x, y, z);
+				if (te != null && te instanceof TileEntityRailcraftCosSignalBlock)
+				{
+					TileEntityRailcraftCosSignalBlock teblock = (TileEntityRailcraftCosSignalBlock) world.getTileEntity(x, y, z);
+					teblock.switchQuadrant();
+				}
+				else if (te != null && te instanceof TileEntityRailcraftCosSignalDistant)
+				{
+					TileEntityRailcraftCosSignalDistant tedistant = (TileEntityRailcraftCosSignalDistant) world.getTileEntity(x, y, z);
+					tedistant.switchQuadrant();
+				}				
+			}
+		}		
+        return false;
+    }
 	
 	public EnumCosSignalType getSignalType() {
 		return signalType;
