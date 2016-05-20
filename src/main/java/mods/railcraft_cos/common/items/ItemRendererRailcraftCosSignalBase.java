@@ -25,15 +25,15 @@ public class ItemRendererRailcraftCosSignalBase implements IItemRenderer {
 			texture = new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalbanner.png");
 			break;
 		case SEMAPHORE_STOP:
-			model = new CosSignalSemaphoreModel(0);
+			model = new CosSignalSemaphoreModel(0, 0);
 			texture = new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalsemaphore.png");
 			break;
 		case SEMAPHORE_REPEATER:
-			model = new CosSignalSemaphoreModel(0);
+			model = new CosSignalSemaphoreModel(0, 0);
 			texture = new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalsemaphoredistant.png");
 			break;
 		default:
-			model = new CosSignalSemaphoreModel(0);
+			model = new CosSignalSemaphoreModel(0, 0);
 			texture = new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalsemaphore.png");
 		}
 	}

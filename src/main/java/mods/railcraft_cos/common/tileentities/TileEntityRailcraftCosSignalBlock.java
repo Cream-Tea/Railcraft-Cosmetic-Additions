@@ -9,10 +9,15 @@ import mods.railcraft.api.signals.SignalBlock;
 import mods.railcraft.api.signals.SignalBlockSimple;
 import mods.railcraft.api.signals.SignalController;
 import mods.railcraft.api.signals.SimpleSignalController;
+import mods.railcraft.common.blocks.aesthetics.post.BlockPostBase;
 import mods.railcraft_cos.common.blocks.BlockRailcraftCosSignalBase;
+import mods.railcraft_cos.common.blocks.BlockRailcraftSignBasic;
 import mods.railcraft_cos.common.blocks.EnumCosSignalType;
 import mods.railcraft_cos.common.core.Railcraft_Cos;
 import mods.railcraft_cos.common.models.CosSignalSemaphoreModel;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockFence;
+import net.minecraft.block.BlockSign;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -20,6 +25,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class TileEntityRailcraftCosSignalBlock extends TileEntity implements IControllerTile, ISignalBlockTile {
@@ -40,12 +46,35 @@ public class TileEntityRailcraftCosSignalBlock extends TileEntity implements ICo
 		return quadrant;
 	}
 	
+	public int getBlocksAround()
+	{
+		if (checkBlockAbove(worldObj,xCoord,yCoord,zCoord))
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+		
+	}
+	
+	public boolean checkBlockAbove(IBlockAccess world, int x,int y,int z)
+	{
+		Block block = world.getBlock(x, y+1, z);
+		Block blockAbove = world.getBlock(x, y+2, z);
+		if (block instanceof BlockFence) return true;
+		else if ((block instanceof BlockPostBase) && (blockAbove instanceof BlockPostBase)) return true;
+		else if (block instanceof BlockRailcraftSignBasic) return true;
+		else if (block instanceof BlockRailcraftCosSignalBase) return true;
+		else if ((block instanceof BlockSign) && Block.getIdFromBlock(block) == 63) return true;
+		else return false;
+	}
+	
 	public void switchQuadrant()
 	{
 		boolean q = getQuadrant();
-		System.out.println(q);
 		quadrant = q ? false : true;
-		System.out.println(q);
 		getWorld().markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 	
@@ -66,13 +95,14 @@ public class TileEntityRailcraftCosSignalBlock extends TileEntity implements ICo
 	public ModelBase getModel() 
 	{
 		int quad = getQuadrant() ? 1 : -1;
+		int ySize = getBlocksAround();
 		switch(getSignalType()) {
 		case SEMAPHORE_STOP:
 			if(!getState()) 
 			{
-				return new CosSignalSemaphoreModel(0);
+				return new CosSignalSemaphoreModel(0, ySize);
 			} else {
-				return new CosSignalSemaphoreModel(quad);
+				return new CosSignalSemaphoreModel(quad, ySize);
 			}
 		default:
 			return null;
