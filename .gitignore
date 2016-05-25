@@ -1,0 +1,13 @@
+/bin/
+/eclipse/
+/lib/
+/mods/
+/saves/
+/resourcepacks/
+/crash-reports/
+/build/
+/logs/
+/usernamecache.json
+/options.txt
+/config/
+/screenshots/

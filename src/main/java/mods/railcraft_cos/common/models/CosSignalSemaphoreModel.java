@@ -20,24 +20,57 @@ public class CosSignalSemaphoreModel extends ModelBase
   //fields
     ModelRenderer Shape1;
     ModelRenderer Shape2;
-  
-  public CosSignalSemaphoreModel()
+    
+  /**
+   * int rot :  -1 for lower quadrant, 0 for horizontal, 1 for upper quadrant signaling.
+   * int ySize : 0 for standard, 1 for connected on top (more possibilities to be added)
+   */
+  public CosSignalSemaphoreModel(int rot, int ySize)
   {
     textureWidth = 32;
     textureHeight = 32;
+    float rotation = 0.7853982F * (float)rot;
+    float pointy = 12F;
+    float pointx = 0F;
+    float topY = 0F;
+    int yLength = 14;
+    if (rot == 1)
+    {
+    	pointy = 7F;
+    	pointx = 2F;
+    }
+    else if (rot == 0)
+    {
+    	pointy = 12F;
+    }
+    else if (rot == -1)
+    {
+    	pointy = 17F;
+    }
+    
+    if (ySize == 0)
+    {
+    	topY = 0F;
+    	yLength = 14;
+    }
+    else if (ySize == 1)
+    {
+    	topY = -2F;
+    	yLength = 16;
+    }
     
       Shape1 = new ModelRenderer(this, 0, 0);
-      Shape1.addBox(0F, 0F, 0F, 4, 14, 4);
+      Shape1.addBox(0F, topY, 0F, 4, yLength, 4);
       Shape1.setRotationPoint(-2F, 10F, -2F);
       Shape1.setTextureSize(64, 32);
       Shape1.mirror = true;
       setRotation(Shape1, 0F, 0F, 0F);
-      Shape2 = new ModelRenderer(this, 0, 18);
+      Shape2 = new ModelRenderer(this, 16, 0);
       Shape2.addBox(0F, 0F, 0F, 7, 3, 1);
-      Shape2.setRotationPoint(-6F, 12F, -3F);
+      Shape2.setRotationPoint(-6F+pointx, pointy, -3F);
       Shape2.setTextureSize(64, 32);
       Shape2.mirror = true;
-      setRotation(Shape2, 0F, 0F, 0F);
+      setRotation(Shape2, 0F, 0F, rotation);
   }
   
   public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)

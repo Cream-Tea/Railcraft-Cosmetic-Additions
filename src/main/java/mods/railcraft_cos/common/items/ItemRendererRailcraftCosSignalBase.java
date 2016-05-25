@@ -25,15 +25,15 @@ public class ItemRendererRailcraftCosSignalBase implements IItemRenderer {
 			texture = new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalbanner.png");
 			break;
 		case SEMAPHORE_STOP:
-			model = new CosSignalSemaphoreModel();
+			model = new CosSignalSemaphoreModel(0, 0);
 			texture = new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalsemaphore.png");
 			break;
 		case SEMAPHORE_REPEATER:
-			model = new CosSignalSemaphoreModel();
+			model = new CosSignalSemaphoreModel(0, 0);
 			texture = new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalsemaphoredistant.png");
 			break;
 		default:
-			model = new CosSignalSemaphoreModel();
+			model = new CosSignalSemaphoreModel(0, 0);
 			texture = new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalsemaphore.png");
 		}
 	}
@@ -89,6 +89,10 @@ public class ItemRendererRailcraftCosSignalBase implements IItemRenderer {
 				model.render(null, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
 				GL11.glPopMatrix();
 				break;
+			case FIRST_PERSON_MAP:
+				break;
+		default:
+			break;
 		}
 	}
 }

@@ -1,6 +1,5 @@
 package mods.railcraft_cos.common.blocks;
 
-import java.util.List;
 import java.util.Random;
 
 import cpw.mods.fml.relauncher.Side;
@@ -10,15 +9,12 @@ import mods.railcraft_cos.common.core.Railcraft_Cos;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockRailcraftPlatform extends Block {
@@ -81,42 +77,42 @@ public class BlockRailcraftPlatform extends Block {
 		return ClientProxy.railcraftPlatformRenderer;
 	}
 	
-	public void onBlockAdded(World p_149726_1_, int p_149726_2_, int p_149726_3_, int p_149726_4_)
+	public void onBlockAdded(World world, int x, int y, int z)
     {
-        super.onBlockAdded(p_149726_1_, p_149726_2_, p_149726_3_, p_149726_4_);
+        super.onBlockAdded(world, x, y, z);
     }
 	
-	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_, int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_, ItemStack p_149689_6_)
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack item)
     {
 		if(platformType != 0) {
-	        int l = MathHelper.floor_double((double)(p_149689_5_.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+	        int l = MathHelper.floor_double((double)(player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 	
 	        if (l == 0)
 	        {
-	            p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, 0, 2);
+	            world.setBlockMetadataWithNotify(x, y, z, 0, 2);
 	        }
 	
 	        if (l == 1)
 	        {
-	            p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, 1, 2);
+	            world.setBlockMetadataWithNotify(x, y, z, 1, 2);
 	        }
 	
 	        if (l == 2)
 	        {
-	            p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, 2, 2);
+	            world.setBlockMetadataWithNotify(x, y, z, 2, 2);
 	        }
 	
 	        if (l == 3)
 	        {
-	            p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, 3, 2);
+	            world.setBlockMetadataWithNotify(x, y, z, 3, 2);
 	        }
 	
-	        if (p_149689_6_.hasDisplayName())
+	        if (item.hasDisplayName())
 	        {
-	            ((TileEntityFurnace)p_149689_1_.getTileEntity(p_149689_2_, p_149689_3_, p_149689_4_)).func_145951_a(p_149689_6_.getDisplayName());
+	            ((TileEntityFurnace)world.getTileEntity(x, y, z)).func_145951_a(item.getDisplayName());
 	        }
 		} else {
-			p_149689_1_.setBlockMetadataWithNotify(p_149689_2_, p_149689_3_, p_149689_4_, 4, 2);
+			world.setBlockMetadataWithNotify(x, y, z, 4, 2);
 		}
     }
 }

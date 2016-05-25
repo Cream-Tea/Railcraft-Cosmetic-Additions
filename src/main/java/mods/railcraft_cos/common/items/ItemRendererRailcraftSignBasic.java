@@ -85,6 +85,10 @@ public class ItemRendererRailcraftSignBasic implements IItemRenderer {
 				model.render(null, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
 				GL11.glPopMatrix();
 				break;
+			case FIRST_PERSON_MAP:
+				break;
+		default:
+			break;
 		}
 	}
 }
