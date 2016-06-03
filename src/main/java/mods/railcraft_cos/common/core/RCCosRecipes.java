@@ -90,6 +90,13 @@ public class RCCosRecipes
 				'S', sign,
 				'R', blue_dye);
 		
+		GameRegistry.addRecipe(new ItemStack(BlockRailcraftCos.SignShunt),
+				"RWR",
+				" S ",
+				'S', sign,
+				'R', red_dye,
+				'W', paper);
+		
 		GameRegistry.addRecipe(new ItemStack(BlockRailcraftCos.PlatformFloor),
 				" SP",
 				'S', cobble,

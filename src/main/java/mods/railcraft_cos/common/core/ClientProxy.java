@@ -41,6 +41,8 @@ public class ClientProxy extends CommonProxy {
 				(IItemRenderer) new ItemRendererRailcraftCosSignalBase(EnumCosSignalType.SEMAPHORE_STOP));
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockRailcraftCos.SignalSemaphoreRepeater),
 				(IItemRenderer) new ItemRendererRailcraftCosSignalBase(EnumCosSignalType.SEMAPHORE_REPEATER));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockRailcraftCos.SignalSemaphoreRepeaterAlt),
+				(IItemRenderer) new ItemRendererRailcraftCosSignalBase(EnumCosSignalType.SEMAPHORE_REPEATER_ALT));
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockRailcraftCos.SignWhistle),
 				(IItemRenderer) new ItemRendererRailcraftSignBasic(EnumSignBasicType.WHISTLE));
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockRailcraftCos.SignMPH5),
@@ -49,5 +51,7 @@ public class ClientProxy extends CommonProxy {
 				(IItemRenderer) new ItemRendererRailcraftSignBasic(EnumSignBasicType.CLEARANCE));
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockRailcraftCos.SignRefuge),
 				(IItemRenderer) new ItemRendererRailcraftSignBasic(EnumSignBasicType.REFUGE));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockRailcraftCos.SignShunt),
+				(IItemRenderer) new ItemRendererRailcraftSignBasic(EnumSignBasicType.SHUNT));
 	}
 }

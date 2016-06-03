@@ -25,6 +25,8 @@ public class TileEntityRailcraftSignBasic extends TileEntity {
 			return new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossign.clearance.png");
 		case REFUGE:
 			return new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossign.refuge.png");
+		case SHUNT:
+			return new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossign.shunt.png");
 		default:
 			return null;
 		}

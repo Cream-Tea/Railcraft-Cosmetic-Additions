@@ -16,7 +16,7 @@ import net.minecraft.item.Item;
 public class Railcraft_Cos {
 	public static final String MODID = "railcraft_cos";
 	public static final String MODNAME = "Railcraft Cosmetic Additions";
-	public static final String MODVER = "1.6";
+	public static final String MODVER = "1.7.2";
 
 	public static CreativeTabs tabRailcraftCos= new CreativeTabs("tabRailcraftCos") {
 
