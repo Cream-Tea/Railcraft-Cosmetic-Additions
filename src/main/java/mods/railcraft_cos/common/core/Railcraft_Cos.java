@@ -1,12 +1,17 @@
 package mods.railcraft_cos.common.core;
 
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mods.railcraft_cos.client.renderer.entity.RenderModelledMinecart;
 import mods.railcraft_cos.common.blocks.BlockRailcraftCos;
+import mods.railcraft_cos.common.entity.item.EntityModelledChestCart;
 import mods.railcraft_cos.common.events.RCCosEventHandler;
 import mods.railcraft_cos.common.items.ItemRailcraftCos;
 import net.minecraft.creativetab.CreativeTabs;
@@ -38,19 +43,16 @@ public class Railcraft_Cos {
 	public static CommonProxy proxy;
 	
 	@EventHandler
-	public static void postInit(FMLInitializationEvent event) 
-	{
-		RCCosRecipes.init();
+	public static void preInit(FMLPreInitializationEvent event) {
+		proxy.registerRendering();
 	}
 	
 	@EventHandler
 	public static void init(FMLInitializationEvent event) 
 	{
-		
 		ItemRailcraftCos.init();
 		BlockRailcraftCos.init();
 		RCCosEventHandler.init();
-		
-		proxy.registerRendering();
+		RCCosRecipes.init();
 	}
 }

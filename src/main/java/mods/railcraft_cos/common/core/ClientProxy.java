@@ -3,11 +3,13 @@ package mods.railcraft_cos.common.core;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
+import mods.railcraft_cos.client.renderer.entity.RenderModelledMinecart;
 import mods.railcraft_cos.common.blocks.BlockRailcraftCos;
 import mods.railcraft_cos.common.blocks.EnumCosSignalType;
 import mods.railcraft_cos.common.blocks.EnumSignBasicType;
 import mods.railcraft_cos.common.blocks.RailcraftCosTrackRenderer;
 import mods.railcraft_cos.common.blocks.RailcraftPlatformRenderer;
+import mods.railcraft_cos.common.entity.item.EntityModelledChestCart;
 import mods.railcraft_cos.common.items.ItemRendererRailcraftCosSignalBase;
 import mods.railcraft_cos.common.items.ItemRendererRailcraftSignBasic;
 import mods.railcraft_cos.common.tileentities.TESRCosSignalBase;
@@ -17,6 +19,7 @@ import mods.railcraft_cos.common.tileentities.TileEntityRailcraftCosSignalDistan
 import mods.railcraft_cos.common.tileentities.TileEntityRailcraftSignBasic;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.EntityRegistry;
 
 public class ClientProxy extends CommonProxy {
 	
@@ -28,9 +31,9 @@ public class ClientProxy extends CommonProxy {
 	{
 		railcraftPlatformRenderer = RenderingRegistry.getNextAvailableRenderId();
 		railcraftCosTrackRenderer = RenderingRegistry.getNextAvailableRenderId();
-		
 		RenderingRegistry.registerBlockHandler(railcraftPlatformRenderer, new RailcraftPlatformRenderer());
 		RenderingRegistry.registerBlockHandler(railcraftCosTrackRenderer, new RailcraftCosTrackRenderer());
+		RenderingRegistry.registerEntityRenderingHandler(EntityModelledChestCart.class, new RenderModelledMinecart());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRailcraftCosSignalBlock.class, new TESRCosSignalBase());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRailcraftCosSignalDistant.class, new TESRCosSignalBase());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRailcraftSignBasic.class, new TESRSignBasic());
