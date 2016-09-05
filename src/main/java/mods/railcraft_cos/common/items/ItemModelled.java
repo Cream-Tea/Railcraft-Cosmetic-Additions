@@ -9,7 +9,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,6 +17,8 @@ import net.minecraft.world.World;
 
 public class ItemModelled extends Item {
 
+	private short type = 0;
+	
 	private static final IBehaviorDispenseItem dispenserMinecartBehavior = new BehaviorDefaultDispenseItem()
     {
         private final BehaviorDefaultDispenseItem behaviourDefaultDispenseItem = new BehaviorDefaultDispenseItem();
@@ -51,8 +52,9 @@ public class ItemModelled extends Item {
                 d3 = -1.0D;
             }
 
-            EntityModelledChestCart entityminecart = new EntityModelledChestCart(world, d0, d1 + d3, d2);
-
+            //Hadn't touched Java in months and was really rusty so just decided to leave it as the default cart.
+            EntityModelledChestCart entityminecart = new EntityModelledChestCart(world, d0, d1 + d3, d2, (short) 0);
+            //---------------------------------------------------------------------------------------------------
 
             if (p_82487_2_.hasDisplayName())
             {
@@ -71,15 +73,18 @@ public class ItemModelled extends Item {
             p_82485_1_.getWorld().playAuxSFX(1000, p_82485_1_.getXInt(), p_82485_1_.getYInt(), p_82485_1_.getZInt(), 0);
         }
     };
+    
     public int minecartType;
 
-    public ItemModelled(int p_i45345_1_, String unlocalizedname)
-    {
+    public ItemModelled(String unlocalizedname, short Type) {
+    	this.type = Type;
         this.maxStackSize = 1;
-        this.minecartType = p_i45345_1_;
+        this.minecartType = -1;
         this.setCreativeTab(Railcraft_Cos.tabRailcraftCos);
         this.setUnlocalizedName(unlocalizedname);
+        this.setTextureName(Railcraft_Cos.MODID + ":" + "cart.modelled." + Short.toString(type));
         BlockDispenser.dispenseBehaviorRegistry.putObject(this, dispenserMinecartBehavior);
+        
     }
 
     /**
@@ -92,7 +97,7 @@ public class ItemModelled extends Item {
         {
             if (!p_77648_3_.isRemote)
             {
-                EntityModelledChestCart entityminecart = new EntityModelledChestCart(p_77648_3_, (double)((float)p_77648_4_ + 0.5F), (double)((float)p_77648_5_ + 0.5F), (double)((float)p_77648_6_ + 0.5F));
+                EntityModelledChestCart entityminecart = new EntityModelledChestCart(p_77648_3_, (double)((float)p_77648_4_ + 0.5F), (double)((float)p_77648_5_ + 0.5F), (double)((float)p_77648_6_ + 0.5F), type);
 
                 if (p_77648_1_.hasDisplayName())
                 {

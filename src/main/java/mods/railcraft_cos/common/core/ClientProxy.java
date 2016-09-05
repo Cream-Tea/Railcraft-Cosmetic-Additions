@@ -3,7 +3,7 @@ package mods.railcraft_cos.common.core;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
-import mods.railcraft_cos.client.renderer.entity.RenderModelledMinecart;
+import mods.railcraft_cos.client.renderer.entity.RenderModelledCartCustom;
 import mods.railcraft_cos.common.blocks.BlockRailcraftCos;
 import mods.railcraft_cos.common.blocks.EnumCosSignalType;
 import mods.railcraft_cos.common.blocks.EnumSignBasicType;
@@ -19,7 +19,6 @@ import mods.railcraft_cos.common.tileentities.TileEntityRailcraftCosSignalDistan
 import mods.railcraft_cos.common.tileentities.TileEntityRailcraftSignBasic;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.registry.EntityRegistry;
 
 public class ClientProxy extends CommonProxy {
 	
@@ -33,7 +32,7 @@ public class ClientProxy extends CommonProxy {
 		railcraftCosTrackRenderer = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(railcraftPlatformRenderer, new RailcraftPlatformRenderer());
 		RenderingRegistry.registerBlockHandler(railcraftCosTrackRenderer, new RailcraftCosTrackRenderer());
-		RenderingRegistry.registerEntityRenderingHandler(EntityModelledChestCart.class, new RenderModelledMinecart());
+		RenderingRegistry.registerEntityRenderingHandler(EntityModelledChestCart.class, new RenderModelledCartCustom());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRailcraftCosSignalBlock.class, new TESRCosSignalBase());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRailcraftCosSignalDistant.class, new TESRCosSignalBase());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRailcraftSignBasic.class, new TESRSignBasic());
