@@ -3,11 +3,13 @@ package mods.railcraft_cos.common.core;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
+import mods.railcraft_cos.client.renderer.entity.RenderModelledCartCustom;
 import mods.railcraft_cos.common.blocks.BlockRailcraftCos;
 import mods.railcraft_cos.common.blocks.EnumCosSignalType;
 import mods.railcraft_cos.common.blocks.EnumSignBasicType;
 import mods.railcraft_cos.common.blocks.RailcraftCosTrackRenderer;
 import mods.railcraft_cos.common.blocks.RailcraftPlatformRenderer;
+import mods.railcraft_cos.common.entity.item.EntityModelledChestCart;
 import mods.railcraft_cos.common.items.ItemRendererRailcraftCosSignalBase;
 import mods.railcraft_cos.common.items.ItemRendererRailcraftSignBasic;
 import mods.railcraft_cos.common.tileentities.TESRCosSignalBase;
@@ -28,9 +30,9 @@ public class ClientProxy extends CommonProxy {
 	{
 		railcraftPlatformRenderer = RenderingRegistry.getNextAvailableRenderId();
 		railcraftCosTrackRenderer = RenderingRegistry.getNextAvailableRenderId();
-		
 		RenderingRegistry.registerBlockHandler(railcraftPlatformRenderer, new RailcraftPlatformRenderer());
 		RenderingRegistry.registerBlockHandler(railcraftCosTrackRenderer, new RailcraftCosTrackRenderer());
+		RenderingRegistry.registerEntityRenderingHandler(EntityModelledChestCart.class, new RenderModelledCartCustom());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRailcraftCosSignalBlock.class, new TESRCosSignalBase());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRailcraftCosSignalDistant.class, new TESRCosSignalBase());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRailcraftSignBasic.class, new TESRSignBasic());
@@ -41,6 +43,8 @@ public class ClientProxy extends CommonProxy {
 				(IItemRenderer) new ItemRendererRailcraftCosSignalBase(EnumCosSignalType.SEMAPHORE_STOP));
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockRailcraftCos.SignalSemaphoreRepeater),
 				(IItemRenderer) new ItemRendererRailcraftCosSignalBase(EnumCosSignalType.SEMAPHORE_REPEATER));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockRailcraftCos.SignalSemaphoreRepeaterAlt),
+				(IItemRenderer) new ItemRendererRailcraftCosSignalBase(EnumCosSignalType.SEMAPHORE_REPEATER_ALT));
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockRailcraftCos.SignWhistle),
 				(IItemRenderer) new ItemRendererRailcraftSignBasic(EnumSignBasicType.WHISTLE));
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockRailcraftCos.SignMPH5),
@@ -49,5 +53,7 @@ public class ClientProxy extends CommonProxy {
 				(IItemRenderer) new ItemRendererRailcraftSignBasic(EnumSignBasicType.CLEARANCE));
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockRailcraftCos.SignRefuge),
 				(IItemRenderer) new ItemRendererRailcraftSignBasic(EnumSignBasicType.REFUGE));
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockRailcraftCos.SignShunt),
+				(IItemRenderer) new ItemRendererRailcraftSignBasic(EnumSignBasicType.SHUNT));
 	}
 }

@@ -88,6 +88,8 @@ public class TileEntityRailcraftCosSignalDistant extends TileEntity implements I
 			}
 		case SEMAPHORE_REPEATER:
 			return new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalsemaphoredistant.png");
+		case SEMAPHORE_REPEATER_ALT:
+			return new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalsemaphore.png");
 		default:
 			return null;
 		}
@@ -100,6 +102,15 @@ public class TileEntityRailcraftCosSignalDistant extends TileEntity implements I
 		switch(getSignalType()) 
 			{	case BANNER_REPEATER: return new CosSignalBannerModel();
 				case SEMAPHORE_REPEATER:
+					if(!getState()) 
+					{
+						return new CosSignalSemaphoreModel(0, ySize);
+					} 
+					else 
+					{
+						return new CosSignalSemaphoreModel(quad, ySize);
+					}
+				case SEMAPHORE_REPEATER_ALT:
 					if(!getState()) 
 					{
 						return new CosSignalSemaphoreModel(0, ySize);

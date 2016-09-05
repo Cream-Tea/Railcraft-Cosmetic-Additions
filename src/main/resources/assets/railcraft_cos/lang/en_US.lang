@@ -1,10 +1,12 @@
 tile.signalbanner.name=Banner Repeater
 tile.signalsemaphore.name=Semaphore Standard
 tile.signalsemaphorerepeater.name=Semaphore Repeater
+tile.signalsemaphorerepeateralt.name=Semaphore Standard (Repeater)
 tile.sign.whistle.name=Whistle Sign
 tile.sign.mph5.name=Speed Limit Sign
 tile.sign.clearance.name=Limited Clearance Sign
 tile.sign.refuge.name=Limited Refuge Sign
+tile.sign.shunt.name=Limit Of Shunt Sign
 tile.platform.floor.name=Platform
 tile.platform.edge.name=Platform Edge
 tile.platform.edge.line.name=Platform Edge With Line

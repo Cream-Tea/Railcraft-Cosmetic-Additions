@@ -30,6 +30,10 @@ public class ItemRendererRailcraftSignBasic implements IItemRenderer {
 			break;
 		case REFUGE:
 			texture =  new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossign.refuge.png");
+			break;
+		case SHUNT:
+			texture =  new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossign.shunt.png");
+			break;
 		}
 	}
 	
@@ -43,7 +47,6 @@ public class ItemRendererRailcraftSignBasic implements IItemRenderer {
 	}
 
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-		
 		switch(type) {
 			case INVENTORY:
 				GL11.glPushMatrix();
