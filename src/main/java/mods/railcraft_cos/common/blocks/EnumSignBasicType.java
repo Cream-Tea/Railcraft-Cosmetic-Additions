@@ -5,4 +5,5 @@ public enum EnumSignBasicType {
 	MPH5,
 	CLEARANCE,
 	REFUGE,
+	SHUNT
 }
