@@ -14,4 +14,6 @@ tile.platform.transition.name=Platform Transition
 tile.track.grass.name=Grass Track
 item.semaphore.arm.name=Signal Arm
 item.sign.blank.name=Blank Sign
+item.cart.modelled.quarry.name=Quarry Cart
+item.cart.modelled.liquid.name=Tanker Cart
 itemGroup.tabRailcraftCos=Railcraft Cosmetic Additions
