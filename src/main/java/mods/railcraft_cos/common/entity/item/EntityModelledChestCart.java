@@ -18,7 +18,6 @@ public class EntityModelledChestCart extends EntityMinecartContainer
     {
         super(p_i1715_1_, p_i1715_2_, p_i1715_4_, p_i1715_6_);
         type = Type;
-        System.out.println("THIS CART IS OF TYPE: " + Type);
     }
     
     public void killMinecart(DamageSource p_94095_1_)
@@ -39,7 +38,7 @@ public class EntityModelledChestCart extends EntityMinecartContainer
         return -1;
     }
     
-    public int getCustomCartType() {
+    public short getCustomCartType() {
     	return type;
     }
 

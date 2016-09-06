@@ -11,6 +11,8 @@
 
 package mods.railcraft_cos.common.models;
 
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -254,6 +256,7 @@ public class CosCartLiquid extends ModelBase
   {
     super.render(entity, f, f1, f2, f3, f4, f5);
     setRotationAngles(f, f1, f2, f3, f4, f5);
+    GL11.glRotatef(90, 0, 1, 0);
     Shape1.render(f5);
     Shape2.render(f5);
     Shape3.render(f5);

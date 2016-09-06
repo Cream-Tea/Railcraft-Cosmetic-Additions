@@ -40,7 +40,6 @@ public class RenderModelledCartCustom extends RenderMinecart
     public void doRender(EntityMinecart p_76986_1_, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_)
     {
         GL11.glPushMatrix();
-        System.out.println("THIS CART IS OF TYPE: " + ((EntityModelledChestCart) p_76986_1_).getCustomCartType());
         switch (((EntityModelledChestCart) p_76986_1_).getCustomCartType()) {
         case 0:
         	modelMinecart = new CosCartQuarry();
