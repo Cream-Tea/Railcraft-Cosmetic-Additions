@@ -26,7 +26,8 @@ public class RCCosRecipes
 		ItemStack polished_slab = new ItemStack(Blocks.stone_slab);
 		ItemStack cobble = new ItemStack(Blocks.cobblestone);
 		ItemStack basic_track = new ItemStack(Blocks.rail);
-		ItemStack grass = new ItemStack(Items.wheat_seeds);
+		ItemStack grass = new ItemStack(Blocks.tallgrass, 1, 1);
+		ItemStack cobweb = new ItemStack(Blocks.web, 1, 1);
 		
 		GameRegistry.addRecipe(new ItemStack(ItemRailcraftCos.SemaphoreArm),
 				"IIR",
@@ -127,6 +128,11 @@ public class RCCosRecipes
 				" T ",
 				'T', basic_track,
 				'G', grass);
+		GameRegistry.addRecipe(new ItemStack(BlockRailcraftCos.TrackCobweb),
+				" C ",
+				" T ",
+				'T', basic_track,
+				'C', cobweb);
 	}
 
 }

@@ -1,80 +1,135 @@
 package mods.railcraft_cos.common.entity.item;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import mods.railcraft.common.util.inventory.InvTools;
+import mods.railcraft.common.util.misc.Game;
+import mods.railcraft_cos.common.items.ItemRailcraftCos;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityMinecartContainer;
+import net.minecraft.init.Blocks;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-public class EntityModelledChestCart extends EntityMinecartContainer
-{
-	
+public class EntityModelledChestCart extends EntityMinecartContainer implements ISidedInventory
+{	
     private String entityName;
+    private short cart = 0;
+    private static final int[] SLOTS = InvTools.buildSlotArray(0, 9);
 
-	public EntityModelledChestCart(World p_i1714_1_)
+	public EntityModelledChestCart(World world)
     {
-        super(p_i1714_1_);
+        super(world);
     }
 
-    public EntityModelledChestCart(World p_i1715_1_, double p_i1715_2_, double p_i1715_4_, double p_i1715_6_, short Type)
+    public EntityModelledChestCart(World world, double x, double y, double z, short cartType)
     {
-        super(p_i1715_1_, p_i1715_2_, p_i1715_4_, p_i1715_6_);
-        this.setCustomCartType(Type);
+        super(world, x, y, z);
+        this.setCustomCartType(cartType);
+        this.cart = cartType;
+    }
+    
+    public int countItems()
+    {
+    	int items = 0;
+    	if (this != null)
+    	{    		
+    		for (int i1 = 0; i1 < this.getSizeInventory(); ++i1)
+    		{
+    			ItemStack itemstack = this.getStackInSlot(i1);
+    			if(itemstack != null)
+    			{
+    				items = items + 1;
+    			}
+    		}
+    	}
+    	return items;
     }
     
     @Override
-    protected void entityInit() {
+    protected void entityInit() 
+    {
     	super.entityInit();
-    	this.dataWatcher.addObject(23, Short.valueOf((short) 0));
+    	this.dataWatcher.addObject(23, cart);
+    	this.dataWatcher.addObject(24, 0);
     }
     
-    public void killMinecart(DamageSource p_94095_1_)
-    {
-        super.killMinecart(p_94095_1_);
+    public List<ItemStack> getItemsDropped() {
+        List<ItemStack> items = new ArrayList<ItemStack>();
+        items.add(getCartItem());
+        return items;
     }
 
-    protected void readEntityFromNBT(NBTTagCompound p_70037_1_)
-    {
-        if (p_70037_1_.getBoolean("CustomDisplayTile"))
-        {
-            this.func_145819_k(p_70037_1_.getInteger("DisplayTile"));
-            this.setDisplayTileData(p_70037_1_.getInteger("DisplayData"));
-            this.setDisplayTileOffset(p_70037_1_.getInteger("DisplayOffset"));
+    @Override
+    public void killMinecart(DamageSource par1DamageSource) {
+        setDead();
+        List<ItemStack> drops = getItemsDropped();
+        if (this.func_95999_t() != null)
+            drops.get(0).setStackDisplayName(this.func_95999_t());
+        for (ItemStack item : drops) {
+            entityDropItem(item, 0.0F);
         }
-
-        if (p_70037_1_.hasKey("CustomName", 8) && p_70037_1_.getString("CustomName").length() > 0)
-        {
-            this.entityName = p_70037_1_.getString("CustomName");
-        }
-        
-        this.setCustomCartType(p_70037_1_.getShort("CustomType"));
     }
     
-    protected void writeEntityToNBT(NBTTagCompound p_70014_1_)
+    @Override
+    public ItemStack getCartItem()
     {
+    	return new ItemStack(ItemRailcraftCos.ModelledChestCartQuarry);
+    }
+    
+    protected void readEntityFromNBT(NBTTagCompound tag)
+    {
+    	super.readEntityFromNBT(tag);
+        if (tag.getBoolean("CustomDisplayTile"))
+        {
+            this.func_145819_k(tag.getInteger("DisplayTile"));
+            this.setDisplayTileData(tag.getInteger("DisplayData"));
+            this.setDisplayTileOffset(tag.getInteger("DisplayOffset"));
+        }
+        if (tag.hasKey("CustomName", 8) && tag.getString("CustomName").length() > 0)
+        {
+            this.entityName = tag.getString("CustomName");
+        }        
+        this.setCustomCartType(tag.getShort("CustomType"));
+        this.dataWatcher.updateObject(24, this.countItems());
+    }
+    
+    protected void writeEntityToNBT(NBTTagCompound tag)
+    {
+    	super.writeEntityToNBT(tag);
         if (this.hasDisplayTile())
         {
-            p_70014_1_.setBoolean("CustomDisplayTile", true);
-            p_70014_1_.setInteger("DisplayTile", this.func_145820_n().getMaterial() == Material.air ? 0 : Block.getIdFromBlock(this.func_145820_n()));
-            p_70014_1_.setInteger("DisplayData", this.getDisplayTileData());
-            p_70014_1_.setInteger("DisplayOffset", this.getDisplayTileOffset());
+            tag.setBoolean("CustomDisplayTile", true);
+            tag.setInteger("DisplayTile", this.func_145820_n().getMaterial() == Material.air ? 0 : Block.getIdFromBlock(this.func_145820_n()));
+            tag.setInteger("DisplayData", this.getDisplayTileData());
+            tag.setInteger("DisplayOffset", this.getDisplayTileOffset());
         }
-
         if (this.entityName != null && this.entityName.length() > 0)
         {
-            p_70014_1_.setString("CustomName", this.entityName);
-        }
-        
-        p_70014_1_.setShort("CustomType", getCustomCartType());
+            tag.setString("CustomName", this.entityName);
+        }        
+        tag.setShort("CustomType", getCustomCartType());
     }
     
-    /**
-     * Returns the number of slots in the inventory.
-     */
     public int getSizeInventory()
     {
-        return 9;
+    	switch(this.getCustomCartType())
+        {
+	        case(0):
+	        case(2):
+	        	return 9;
+	        case(3):
+	        case(4):
+	        	return 0;
+	        default:
+	        	return 9;
+        }
     }
 
     public int getMinecartType()
@@ -82,16 +137,88 @@ public class EntityModelledChestCart extends EntityMinecartContainer
         return -1;
     }
     
-    public void setCustomCartType(short Type) {
-    	this.dataWatcher.updateObject(23, Short.valueOf(Type));
+    public void setCustomCartType(short cartType) 
+    {
+    	this.dataWatcher.updateObject(23, Short.valueOf(cartType));
     }
     
-    public short getCustomCartType() {
+    public short getCustomCartType() 
+    {
     	return this.dataWatcher.getWatchableObjectShort(23);
+    }
+    
+    public int getItemCount()
+    {
+    	return this.dataWatcher.getWatchableObjectInt(24);
     }
 
     public int getDefaultDisplayTileOffset()
     {
         return 8;
     }
+    
+    @Override
+    public boolean isItemValidForSlot(int slot, ItemStack item)
+    {
+        switch(this.getCustomCartType())
+        {
+        case(0):
+        	return true;
+        case(2):
+        {
+        	if (item != null)
+        	{
+        		Item log = item.getItem();
+        		if (log == Item.getItemFromBlock(Blocks.log) || log == Item.getItemFromBlock(Blocks.log2) )
+        		{
+        			return true;
+        		}
+        		//needs to be added: Forestry woods etc.
+        	}
+        	return false;
+        	
+        	
+        }
+        case(3):
+        case(4):
+        {
+        	return false;
+        }
+        default:
+        	return true;
+        }
+    }
+    
+    public void onUpdate()
+    {
+    	super.onUpdate();
+    	if (Game.isHost(worldObj))
+    	{
+    		this.dataWatcher.updateObject(24, this.countItems());
+    	}
+    }
+
+    public boolean canInsertItem(int slot, ItemStack stack, int side)
+    {
+        return isItemValidForSlot(slot, stack);
+    }
+
+	@Override
+	public int[] getAccessibleSlotsFromSide(int side) 
+	{
+		return SLOTS;
+	}
+
+	@Override
+	public boolean canExtractItem(int slot, ItemStack item, int side) 
+	{
+		return true;
+	}
+	
+	@Override
+	public String getInventoryName()
+    {
+        return this.hasCustomInventoryName() ? this.entityName : "entity.railcraft_cos.modelledchestcart." + Short.toString(this.getCustomCartType()) + ".name";
+    }
+    
 }

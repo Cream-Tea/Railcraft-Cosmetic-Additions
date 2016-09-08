@@ -7,16 +7,20 @@ import cpw.mods.fml.relauncher.SideOnly;
 import mods.railcraft_cos.common.core.ClientProxy;
 import mods.railcraft_cos.common.core.Railcraft_Cos;
 import net.minecraft.block.BlockRailBase;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class BlockRailcraftCosTrack extends BlockRailBase
+public class BlockRailcraftCosTrackCobweb extends BlockRailBase
 {	
-	public BlockRailcraftCosTrack(String unlocalizedName, boolean powered) 
+	public BlockRailcraftCosTrackCobweb(String unlocalizedName, boolean powered) 
 	{
 		super(powered);
 		setBlockName(unlocalizedName);
@@ -41,14 +45,21 @@ public class BlockRailcraftCosTrack extends BlockRailBase
     {
 		if(player.getCurrentEquippedItem() != null)
 		{
-			ItemStack item = player.getCurrentEquippedItem();
-
+			ItemStack item = player.getCurrentEquippedItem();			
 			if(item.getItem() instanceof ItemShears)
-			{
+			{				
 				int oldmeta = world.getBlockMetadata(x, y, z);
 				world.setBlock(x, y, z, Blocks.rail, oldmeta, 2);
-				ItemStack itemstack = new ItemStack(Blocks.tallgrass, 1, 1);
-				dropBlockAsItem(world, x, y, z, itemstack);
+				if (EnchantmentHelper.getEnchantmentLevel(Enchantment.silkTouch.effectId, item) > 0)
+				{
+					ItemStack itemstack = new ItemStack(Blocks.web, 1, 1);
+					dropBlockAsItem(world, x, y, z, itemstack);
+				}
+				else
+				{
+					ItemStack itemstack = new ItemStack(Items.string, 1, 1);
+					dropBlockAsItem(world, x, y, z, itemstack);
+				}				
 				item.damageItem(1, player);
 				return true;
 			}
@@ -62,6 +73,12 @@ public class BlockRailcraftCosTrack extends BlockRailBase
 		{
 			return false;
 		}		
+    }
+	
+	@Override
+	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
+    {
+        entity.setInWeb();
     }
 
 }

@@ -96,7 +96,7 @@ public class CosCartLiquid extends ModelBase
       setRotation(Shape6, 0F, 0F, 0F);
       Shape7 = new ModelRenderer(this, 76, 0);
       Shape7.addBox(0F, 0F, 0F, 1, 3, 3);
-      Shape7.setRotationPoint(-6.2F, 4F, -12F);
+      Shape7.setRotationPoint(-6F, 4F, -12F);
       Shape7.setTextureSize(128, 64);
       Shape7.mirror = true;
       setRotation(Shape7, 0F, 0F, 0F);
