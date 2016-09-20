@@ -1,6 +1,7 @@
 /bin/
 /eclipse/
 /lib/
+/libs/
 /mods/
 /saves/
 /resourcepacks/
@@ -11,3 +12,6 @@
 /options.txt
 /config/
 /screenshots/
+/.gradle/
+.gradle/
+servers.dat

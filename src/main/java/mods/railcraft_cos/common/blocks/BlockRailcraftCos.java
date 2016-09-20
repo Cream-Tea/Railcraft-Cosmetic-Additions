@@ -26,6 +26,7 @@ public final class BlockRailcraftCos
 	public static Block TrackGrass;
 	public static Block TrackWoodenGrass;
 	public static Block TrackCobweb;
+	//public static Block TrackSnow;
 	
 	public static final void init()
 	{
@@ -44,6 +45,7 @@ public final class BlockRailcraftCos
 		PlatformTransition = new BlockRailcraftPlatform("platform.transition", (byte) 3);
 		TrackGrass = new BlockRailcraftCosTrack("track.grass", false);
 		TrackCobweb = new BlockRailcraftCosTrackCobweb("track.cobweb", false);
+		//TrackSnow = new BlockRailcraftCosTrackSnow("track.snow", false);
 		
 		GameRegistry.registerBlock(SignalBanner, ItemRailcraftCosSignalBase.class, SignalBanner.getUnlocalizedName());		
 		GameRegistry.registerBlock(SignalSemaphore, ItemRailcraftCosSignalBase.class, SignalSemaphore.getUnlocalizedName());		
@@ -60,6 +62,7 @@ public final class BlockRailcraftCos
 		GameRegistry.registerBlock(PlatformTransition, PlatformTransition.getUnlocalizedName());				
 		GameRegistry.registerBlock(TrackGrass, TrackGrass.getUnlocalizedName());
 		GameRegistry.registerBlock(TrackCobweb, TrackCobweb.getUnlocalizedName());
+		//GameRegistry.registerBlock(TrackSnow, TrackSnow.getUnlocalizedName());
 		
 		GameRegistry.registerTileEntity(TileEntityRailcraftCosSignalBlock.class, "tileentityrailcraftcossignalblock");
 		GameRegistry.registerTileEntity(TileEntityRailcraftCosSignalDistant.class, "tileentityrailcraftcossignaldistant");

@@ -2,11 +2,10 @@ package mods.railcraft_cos.common.models;
 
 import org.lwjgl.opengl.GL11;
 
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class CosCartWoodFull extends ModelBase
+public class CosCartWoodFull extends CosCartModelBase
 {
   //fields
     ModelRenderer wheelRearRightRear;
@@ -37,11 +36,9 @@ public class CosCartWoodFull extends ModelBase
     ModelRenderer log7;
     ModelRenderer log8;
     ModelRenderer log9;
-    int logsLoaded = 0;
   
-  public CosCartWoodFull(int logs)
+  public CosCartWoodFull()
   {
-	  this.logsLoaded = logs;
 	  textureWidth = 128;
 	  textureHeight = 64;
     
@@ -159,91 +156,65 @@ public class CosCartWoodFull extends ModelBase
       rodRearRightRear.setTextureSize(128, 64);
       rodRearRightRear.mirror = true;
       setRotation(rodRearRightRear, 0F, 0F, 0F);
-      if (logs > 0)
-      {
-    	  log1 = new ModelRenderer(this, 0, 34);
-    	  log1.addBox(-6F, -1F, -12F, 3, 3, 24);
-    	  log1.setRotationPoint(0F, 0F, 0F);
-    	  log1.setTextureSize(128, 64);
-    	  log1.mirror = true;
-    	  setRotation(log1, 0F, 0F, 0F);   	  
-      }
-      if (logs > 1)
-      {
-    	  log2 = new ModelRenderer(this, 0, 34);
-          log2.addBox(-3F, -1F, -12F, 3, 3, 24);
-          log2.setRotationPoint(0F, 0F, 0F);
-          log2.setTextureSize(128, 64);
-          log2.mirror = true;
-          setRotation(log2, 0F, 0F, 0F);   	  
-      }
-      if (logs > 2)
-      {
-    	  log3 = new ModelRenderer(this, 0, 34);
-          log3.addBox(0F, -1F, -12F, 3, 3, 24);
-          log3.setRotationPoint(0F, 0F, 0F);
-          log3.setTextureSize(128, 64);
-          log3.mirror = true;
-          setRotation(log3, 0F, 0F, 0F);
-      }
-      if (logs > 3)
-      {
-    	  log4 = new ModelRenderer(this, 0, 34);
-          log4.addBox(3F, -1F, -12F, 3, 3, 24);
-          log4.setRotationPoint(0F, 0F, 0F);
-          log4.setTextureSize(128, 64);
-          log4.mirror = true;
-          setRotation(log4, 0F, 0F, 0F);
-      }
-      if (logs > 4)
-      {
-          log5 = new ModelRenderer(this, 0, 34);
-          log5.addBox(-5F, -4F, -12F, 3, 3, 24);
-          log5.setRotationPoint(0F, 0F, 0F);
-          log5.setTextureSize(128, 64);
-          log5.mirror = true;
-          setRotation(log5, 0F, 0F, 0F);
-      }
-      if (logs > 5)
-      {
-          log6 = new ModelRenderer(this, 0, 34);
-          log6.addBox(-2F, -4F, -12F, 3, 3, 24);
-          log6.setRotationPoint(0F, 0F, 0F);
-          log6.setTextureSize(128, 64);
-          log6.mirror = true;
-          setRotation(log6, 0F, 0F, 0F);
-      }
-      if (logs > 6)
-      {
-    	 log7 = new ModelRenderer(this, 0, 34);
-    	 log7.addBox(1F, -4F, -12F, 3, 3, 24);
-    	 log7.setRotationPoint(0F, 0F, 0F);
-    	 log7.setTextureSize(128, 64);
-    	 log7.mirror = true;
-    	 setRotation(log7, 0F, 0F, 0F); 
-      }
-      if (logs > 7)
-      {
-    	  log8 = new ModelRenderer(this, 0, 34);
-	      log8.addBox(-3F, -7F, -12F, 3, 3, 24);
-	      log8.setRotationPoint(0F, 0F, 0F);
-	      log8.setTextureSize(128, 64);
-	      log8.mirror = true;
-	      setRotation(log8, 0F, 0F, 0F);
-      }
-      if (logs > 8)
-      {
-    	  log9 = new ModelRenderer(this, 0, 34);
-	      log9.addBox(0F, -7F, -12F, 3, 3, 24);
-	      log9.setRotationPoint(0F, 0F, 0F);
-	      log9.setTextureSize(128, 64);
-	      log9.mirror = true;
-	      setRotation(log9, 0F, 0F, 0F);
-      }
+      log1 = new ModelRenderer(this, 0, 34);
+	  log1.addBox(-6F, -1F, -12F, 3, 3, 24);
+	  log1.setRotationPoint(0F, 0F, 0F);
+	  log1.setTextureSize(128, 64);
+	  log1.mirror = true;
+	  setRotation(log1, 0F, 0F, 0F);   	  
+	  log2 = new ModelRenderer(this, 0, 34);
+      log2.addBox(-3F, -1F, -12F, 3, 3, 24);
+      log2.setRotationPoint(0F, 0F, 0F);
+      log2.setTextureSize(128, 64);
+      log2.mirror = true;
+      setRotation(log2, 0F, 0F, 0F);   	  
+	  log3 = new ModelRenderer(this, 0, 34);
+      log3.addBox(0F, -1F, -12F, 3, 3, 24);
+      log3.setRotationPoint(0F, 0F, 0F);
+      log3.setTextureSize(128, 64);
+      log3.mirror = true;
+      setRotation(log3, 0F, 0F, 0F);
+	  log4 = new ModelRenderer(this, 0, 34);
+      log4.addBox(3F, -1F, -12F, 3, 3, 24);
+      log4.setRotationPoint(0F, 0F, 0F);
+      log4.setTextureSize(128, 64);
+      log4.mirror = true;
+      setRotation(log4, 0F, 0F, 0F);
+      log5 = new ModelRenderer(this, 0, 34);
+      log5.addBox(-5F, -4F, -12F, 3, 3, 24);
+      log5.setRotationPoint(0F, 0F, 0F);
+      log5.setTextureSize(128, 64);
+      log5.mirror = true;
+      setRotation(log5, 0F, 0F, 0F);
+      log6 = new ModelRenderer(this, 0, 34);
+      log6.addBox(-2F, -4F, -12F, 3, 3, 24);
+      log6.setRotationPoint(0F, 0F, 0F);
+      log6.setTextureSize(128, 64);
+      log6.mirror = true;
+      setRotation(log6, 0F, 0F, 0F);
+      log7 = new ModelRenderer(this, 0, 34);
+      log7.addBox(1F, -4F, -12F, 3, 3, 24);
+      log7.setRotationPoint(0F, 0F, 0F);
+      log7.setTextureSize(128, 64);
+      log7.mirror = true;
+      setRotation(log7, 0F, 0F, 0F); 
+	  log8 = new ModelRenderer(this, 0, 34);
+      log8.addBox(-3F, -7F, -12F, 3, 3, 24);
+      log8.setRotationPoint(0F, 0F, 0F);
+      log8.setTextureSize(128, 64);
+      log8.mirror = true;
+      setRotation(log8, 0F, 0F, 0F);
+	  log9 = new ModelRenderer(this, 0, 34);
+      log9.addBox(0F, -7F, -12F, 3, 3, 24);
+      log9.setRotationPoint(0F, 0F, 0F);
+      log9.setTextureSize(128, 64);
+      log9.mirror = true;
+      setRotation(log9, 0F, 0F, 0F);
+  
       
   }
   
-  public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
+  public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5, int items)
   {
     super.render(entity, f, f1, f2, f3, f4, f5);
     setRotationAngles(f, f1, f2, f3, f4, f5, entity);
@@ -267,15 +238,15 @@ public class CosCartWoodFull extends ModelBase
     rodFrontRightRear.render(f5);
     rodRearRightFront.render(f5);
     rodRearRightRear.render(f5);
-    if (this.logsLoaded > 0) log1.render(f5);
-    if (this.logsLoaded > 1) log2.render(f5);
-    if (this.logsLoaded > 2) log3.render(f5);
-    if (this.logsLoaded > 3) log4.render(f5);
-    if (this.logsLoaded > 4) log5.render(f5);
-    if (this.logsLoaded > 5) log6.render(f5);
-    if (this.logsLoaded > 6) log7.render(f5);
-    if (this.logsLoaded > 7) log8.render(f5);
-    if (this.logsLoaded > 8) log9.render(f5);
+    if (items > 0) log1.render(f5);
+    if (items > 1) log2.render(f5);
+    if (items > 2) log3.render(f5);
+    if (items > 3) log4.render(f5);
+    if (items > 4) log5.render(f5);
+    if (items > 5) log6.render(f5);
+    if (items > 6) log7.render(f5);
+    if (items > 7) log8.render(f5);
+    if (items > 8) log9.render(f5);
   }
   
   private void setRotation(ModelRenderer model, float x, float y, float z)

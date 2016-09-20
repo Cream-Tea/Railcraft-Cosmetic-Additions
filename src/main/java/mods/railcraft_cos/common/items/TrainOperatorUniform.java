@@ -8,12 +8,16 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 
 public class TrainOperatorUniform extends ItemArmor
 {
-
+	@SideOnly(Side.CLIENT)
+    private IIcon overlayIcon;
 	private String textureName;
 
 	public TrainOperatorUniform(String unlocalizedName, ArmorMaterial material, String textureName, int type) 
@@ -57,6 +61,13 @@ public class TrainOperatorUniform extends ItemArmor
 			 }
 		 }
 		return armorModel;
+	}
+
+	@Override
+	public boolean getIsRepairable(ItemStack item, ItemStack item2)
+	{
+		return item2.getItem() == Item.getItemFromBlock(Blocks.wool) ? true : super.getIsRepairable(item, item2);
+		
 	}
 }
 

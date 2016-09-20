@@ -1,5 +1,7 @@
 package mods.railcraft_cos.common.items;
 
+import java.util.Random;
+
 import com.mojang.authlib.GameProfile;
 
 import mods.railcraft.api.carts.CartTools;
@@ -21,13 +23,13 @@ public class ItemModelled extends Item implements IMinecartItem
 	private short type;    
     public int minecartType;
 
-    public ItemModelled(String unlocalizedname, short cartType) 
+    public ItemModelled(String unlocalizedName, short cartType) 
     {
     	this.type = cartType;
         this.maxStackSize = 3;
         this.minecartType = -1;
         this.setCreativeTab(Railcraft_Cos.tabRailcraftCos);
-        this.setUnlocalizedName(unlocalizedname);
+        this.setUnlocalizedName(unlocalizedName);
         this.setTextureName(Railcraft_Cos.MODID + ":" + "cart.modelled." + Short.toString(type));
         BlockDispenser.dispenseBehaviorRegistry.putObject(this, null);        
     }
@@ -45,8 +47,10 @@ public class ItemModelled extends Item implements IMinecartItem
             		case(2):
             		case(3):
             		case(4):
+            		case(5):
             		{
-            			EntityModelledChestCart entityminecart = new EntityModelledChestCart(world, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), type);                        
+            			int rand = new Random().nextInt(9);
+            			EntityModelledChestCart entityminecart = new EntityModelledChestCart(world, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), type, rand);                        
             			if (item.hasDisplayName())
                         {
                             entityminecart.setMinecartName(item.getDisplayName());
@@ -57,7 +61,8 @@ public class ItemModelled extends Item implements IMinecartItem
             		}
             		case(1):
             		{
-            			EntityModelledTankCart entitytankminecart = new EntityModelledTankCart(world, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), type);                        
+            			int rand = new Random().nextInt(9);
+            			EntityModelledTankCart entitytankminecart = new EntityModelledTankCart(world, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), type, rand);                        
             			if (item.hasDisplayName())
                         {
                             entitytankminecart.setMinecartName(item.getDisplayName());
@@ -93,8 +98,11 @@ public class ItemModelled extends Item implements IMinecartItem
         		case(0):
         		case(2):
         		case(3):
+        		case(4):
+        		case(5):
         		{
-        			EntityModelledChestCart cart = new EntityModelledChestCart(world, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), type);                        
+        			int rand = new Random().nextInt(9);
+        			EntityModelledChestCart cart = new EntityModelledChestCart(world, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), type, rand);                        
         			if (item.hasDisplayName())
                     {
                         cart.setMinecartName(item.getDisplayName());
@@ -105,7 +113,8 @@ public class ItemModelled extends Item implements IMinecartItem
         		}
         		case(1):
         		{
-        			EntityModelledTankCart cart = new EntityModelledTankCart(world, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), type);                        
+        			int rand = new Random().nextInt(9);
+        			EntityModelledTankCart cart = new EntityModelledTankCart(world, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), type, rand);                        
         			if (item.hasDisplayName())
                     {
                         cart.setMinecartName(item.getDisplayName());

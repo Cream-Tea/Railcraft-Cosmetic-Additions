@@ -1,17 +1,20 @@
 package mods.railcraft_cos.client.renderer.entity;
 
+import org.lwjgl.opengl.GL11;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.railcraft_cos.common.core.Railcraft_Cos;
 import mods.railcraft_cos.common.entity.item.EntityModelledChestCart;
 import mods.railcraft_cos.common.entity.item.EntityModelledTankCart;
+import mods.railcraft_cos.common.models.CosCartContainer;
 import mods.railcraft_cos.common.models.CosCartEmpty;
-import mods.railcraft_cos.common.models.CosCartLiquid;
+import mods.railcraft_cos.common.models.CosCartModelBase;
 import mods.railcraft_cos.common.models.CosCartPanzer;
 import mods.railcraft_cos.common.models.CosCartQuarry;
+import mods.railcraft_cos.common.models.CosCartTanker;
 import mods.railcraft_cos.common.models.CosCartWoodFull;
 import net.minecraft.block.Block;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.RenderMinecart;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -19,66 +22,89 @@ import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderModelledCartCustom extends RenderMinecart
 {
-    private static ResourceLocation minecartTextures = new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.quarry.png");
-    /** instance of ModelMinecart for rendering */
-    protected ModelBase modelMinecart = new CosCartQuarry();
+	private static ResourceLocation minecartTankTextures[] =
+		{	new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.liquid.0.png"),
+			new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.liquid.1.png"),
+			new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.liquid.2.png"),
+			new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.liquid.3.png"),
+			new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.liquid.4.png"),
+			new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.liquid.5.png"),
+			new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.liquid.6.png"),
+			new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.liquid.7.png"),
+			new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.liquid.8.png")
+		};
+	private static ResourceLocation minecartContainerTextures[] =
+		{	new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.container.0.png"),
+			new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.container.1.png"),
+			new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.container.2.png"),
+			new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.container.3.png"),
+			new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.container.4.png"),
+			new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.container.5.png"),
+			new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.container.6.png"),
+			new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.container.7.png"),
+			new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.container.8.png")
+		};
+    private static ResourceLocation minecartTextures[] = 
+    	{	new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.quarry.png"),
+    		new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.liquid.0.png"),
+    		new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.woodfull.png"),
+    		new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.empty.png"),
+    		new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.panzer.png"),
+    		new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.container.0.png")
+    	};    
+    private CosCartModelBase modelMinecart[] = 
+    	{	new CosCartQuarry(),
+    		new CosCartTanker(), 
+    		new CosCartWoodFull(),
+    		new CosCartEmpty(), 
+    		new CosCartPanzer(), 
+    		new CosCartContainer()
+    	};
     protected final RenderBlocks field_94145_f;
+
 
     public RenderModelledCartCustom()
     {
         this.shadowSize = 0.5F;
-        this.field_94145_f = new RenderBlocks();
+        this.field_94145_f = new RenderBlocks();       
     }
 
+    public int getCartType(EntityMinecart entity)
+    {
+    	int cart = 0;
+    	if(entity instanceof EntityModelledChestCart)
+    	{
+    		cart = ((EntityModelledChestCart) entity).getCustomCartType();
+    	}
+    	else if(entity instanceof EntityModelledTankCart) 
+    	{
+    		cart = ((EntityModelledTankCart) entity).getCustomCartType();
+    	}
+    	return cart;
+    }
+    
+    public int getCartItems(EntityMinecart entity)
+    {
+    	int items = 0;
+    	if(entity instanceof EntityModelledChestCart)
+    	{
+    		items = ((EntityModelledChestCart) entity).getItemCount();
+    	}
+    	else if(entity instanceof EntityModelledTankCart) 
+    	{
+    		items = 0;
+    	}
+    	return items;
+    }
+    
     public void doRender(EntityMinecart entity, double d, double d1, double d2, float f, float f1)
     {
         GL11.glPushMatrix();
-        if(entity instanceof EntityModelledChestCart)
-        {
-        	switch (((EntityModelledChestCart) entity).getCustomCartType()) 
-        	{	case 0:
-	            {
-	            	modelMinecart = new CosCartQuarry();
-	            	minecartTextures = new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.quarry.png");
-	            	break;
-	            }	            	
-	            case 2: 
-	            {	int logs = ((EntityModelledChestCart) entity).getItemCount();
-	            	modelMinecart = new CosCartWoodFull(logs);
-	            	minecartTextures = new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.woodfull.png");
-	            	break;
-	            } 
-	            case 3: 
-	            {	
-	            	modelMinecart = new CosCartEmpty();
-	            	minecartTextures = new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.empty.png");
-	            	break;
-	            }
-	            case 4: 
-	            {	
-	            	modelMinecart = new CosCartPanzer();
-	            	minecartTextures = new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.panzer.png");
-	            	break;
-	            }
-            }
-        }
-        else if(entity instanceof EntityModelledTankCart)
-        {
-        	switch (((EntityModelledTankCart) entity).getCustomCartType()) 
-        	{	           
-	            case 1:
-	            {	modelMinecart = new CosCartLiquid();
-	            	minecartTextures = new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.liquid.png");
-	            	break;
-	            }
-        	}
-        }
-       
+        int logs = getCartItems(entity);
         this.bindEntityTexture(entity);
         long i = (long)entity.getEntityId() * 493286711L;
         i = i * i * 4392167121L + i * 98761L;
@@ -155,13 +181,21 @@ public class RenderModelledCartCustom extends RenderMinecart
         }
 
         GL11.glScalef(-1.0F, -1.0F, 1.0F);
-        this.modelMinecart.render(entity, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+        this.modelMinecart[getCartType(entity)].render(entity, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F, logs);
         GL11.glPopMatrix();
     }
 
     protected ResourceLocation getEntityTexture(EntityMinecart entity)
     {
-        return minecartTextures;
+        if (getCartType(entity) == 1 && entity instanceof EntityModelledTankCart)
+        {
+        	return minecartTankTextures[((EntityModelledTankCart) entity).getColor()];
+        }
+        else if (getCartType(entity) == 5 && entity instanceof EntityModelledChestCart)
+        {
+        	return minecartContainerTextures[((EntityModelledChestCart) entity).getColor()];
+        }
+    	return minecartTextures[getCartType(entity)];
     }
 
     protected void func_147910_a(EntityMinecart entity, float f, Block block, int i)

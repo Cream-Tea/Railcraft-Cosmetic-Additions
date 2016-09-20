@@ -9,30 +9,38 @@ import mods.railcraft_cos.common.items.ItemRailcraftCos;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityMinecartContainer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class EntityModelledChestCart extends EntityMinecartContainer implements ISidedInventory
 {	
     private String entityName;
-    private short cart = 0;
-    private static final int[] SLOTS = InvTools.buildSlotArray(0, 9);
+    private short cart;
+    public short colour = 0;
+    private static final int[] SLOTS1 = InvTools.buildSlotArray(0, 1);
+    private static final int[] SLOTS9 = InvTools.buildSlotArray(0, 9);
+    private static final int[] SLOTS36 = InvTools.buildSlotArray(0, 36);
 
 	public EntityModelledChestCart(World world)
     {
         super(world);
     }
 
-    public EntityModelledChestCart(World world, double x, double y, double z, short cartType)
+    public EntityModelledChestCart(World world, double x, double y, double z, short cartType, int color)
     {
         super(world, x, y, z);
         this.setCustomCartType(cartType);
         this.cart = cartType;
+        if (cartType == 5)
+        {
+        	this.setColor((short) color);
+        	this.colour = (short) color;
+        }
+        
     }
     
     public int countItems()
@@ -57,7 +65,8 @@ public class EntityModelledChestCart extends EntityMinecartContainer implements 
     {
     	super.entityInit();
     	this.dataWatcher.addObject(23, cart);
-    	this.dataWatcher.addObject(24, 0);
+    	this.dataWatcher.addObject(24, Short.valueOf(colour));
+    	this.dataWatcher.addObject(29, 0);
     }
     
     public List<ItemStack> getItemsDropped() {
@@ -80,12 +89,33 @@ public class EntityModelledChestCart extends EntityMinecartContainer implements 
     @Override
     public ItemStack getCartItem()
     {
-    	return new ItemStack(ItemRailcraftCos.ModelledChestCartQuarry);
+    	switch(this.getCustomCartType())
+        {
+	        case(0):
+	        	return new ItemStack(ItemRailcraftCos.ModelledChestCartQuarry);
+	        case(2):
+	        	return new ItemStack(ItemRailcraftCos.ModelledChestCartWood);
+	        case(3):
+	        	return new ItemStack(ItemRailcraftCos.ModelledChestCartEmpty);
+	        case(4):
+	        	return new ItemStack(ItemRailcraftCos.ModelledChestCartPanzer);
+	        case(5):
+	        	return new ItemStack(ItemRailcraftCos.ModelledChestCartContainer);
+	        default:
+	        	return new ItemStack(ItemRailcraftCos.ModelledChestCartEmpty);
+        }   	
     }
     
     protected void readEntityFromNBT(NBTTagCompound tag)
-    {
-    	super.readEntityFromNBT(tag);
+    {   short type = tag.getShort("CustomType");
+        this.setCustomCartType(type);
+        this.cart = type;
+        this.dataWatcher.updateObject(29, this.countItems());
+        if (type == 5 && tag.hasKey("Colour"))
+        {
+        	this.setColor(tag.getShort("Colour"));
+        }
+        super.readEntityFromNBT(tag);	
         if (tag.getBoolean("CustomDisplayTile"))
         {
             this.func_145819_k(tag.getInteger("DisplayTile"));
@@ -95,9 +125,7 @@ public class EntityModelledChestCart extends EntityMinecartContainer implements 
         if (tag.hasKey("CustomName", 8) && tag.getString("CustomName").length() > 0)
         {
             this.entityName = tag.getString("CustomName");
-        }        
-        this.setCustomCartType(tag.getShort("CustomType"));
-        this.dataWatcher.updateObject(24, this.countItems());
+        }                     
     }
     
     protected void writeEntityToNBT(NBTTagCompound tag)
@@ -114,9 +142,25 @@ public class EntityModelledChestCart extends EntityMinecartContainer implements 
         {
             tag.setString("CustomName", this.entityName);
         }        
-        tag.setShort("CustomType", getCustomCartType());
+        short type = getCustomCartType();
+        tag.setShort("CustomType", type);
+        if (type == 5)
+        {
+        	tag.setShort("Colour", getColor());
+        }
     }
     
+    public short getColor() 
+    {
+    	return this.dataWatcher.getWatchableObjectShort(24);
+    }
+    
+    public void setColor(short color) 
+    {
+    	this.dataWatcher.updateObject(24, Short.valueOf(color));
+    }
+    
+    @Override
     public int getSizeInventory()
     {
     	switch(this.getCustomCartType())
@@ -127,11 +171,13 @@ public class EntityModelledChestCart extends EntityMinecartContainer implements 
 	        case(3):
 	        case(4):
 	        	return 0;
+	        case(5):
+	        	return 36;
 	        default:
 	        	return 9;
         }
     }
-
+ 
     public int getMinecartType()
     {
         return -1;
@@ -149,7 +195,7 @@ public class EntityModelledChestCart extends EntityMinecartContainer implements 
     
     public int getItemCount()
     {
-    	return this.dataWatcher.getWatchableObjectInt(24);
+    	return this.dataWatcher.getWatchableObjectInt(29);
     }
 
     public int getDefaultDisplayTileOffset()
@@ -163,17 +209,19 @@ public class EntityModelledChestCart extends EntityMinecartContainer implements 
         switch(this.getCustomCartType())
         {
         case(0):
+        case(5):
         	return true;
         case(2):
         {
         	if (item != null)
         	{
-        		Item log = item.getItem();
+        		/*Item log = item.getItem();
         		if (log == Item.getItemFromBlock(Blocks.log) || log == Item.getItemFromBlock(Blocks.log2) )
         		{
         			return true;
         		}
-        		//needs to be added: Forestry woods etc.
+        		//needs to be added: Forestry woods etc.*/
+        		return isWood(item);
         	}
         	return false;
         	
@@ -194,7 +242,7 @@ public class EntityModelledChestCart extends EntityMinecartContainer implements 
     	super.onUpdate();
     	if (Game.isHost(worldObj))
     	{
-    		this.dataWatcher.updateObject(24, this.countItems());
+    		this.dataWatcher.updateObject(29, this.countItems());
     	}
     }
 
@@ -206,7 +254,19 @@ public class EntityModelledChestCart extends EntityMinecartContainer implements 
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) 
 	{
-		return SLOTS;
+		switch(this.getCustomCartType())
+        {
+        	case(0):
+        	case(2):
+        		return SLOTS9;
+        	case(3):
+        	case(4):
+        		return SLOTS1;
+        	case(5):
+        		return SLOTS36;
+        	default:
+        		return SLOTS9;
+        }
 	}
 
 	@Override
@@ -220,5 +280,26 @@ public class EntityModelledChestCart extends EntityMinecartContainer implements 
     {
         return this.hasCustomInventoryName() ? this.entityName : "entity.railcraft_cos.modelledchestcart." + Short.toString(this.getCustomCartType()) + ".name";
     }
+	
+	public boolean isWood(ItemStack stack)
+    {
+    	int[] array = OreDictionary.getOreIDs(stack);
+    	int size = array.length;
+    	int wood = OreDictionary.getOreID("logWood");
+    	boolean isIn = false;
+    	if (size > 0)
+    	{
+    		for (int i = 0; i < size; i++)
+	    	{
+	    		if (array[i] == wood)
+	    		{
+	    			isIn = true;
+	    			break;
+	    		}
+	    	}
+    	}    	
+    	return isIn;
+    }
+	
     
 }
