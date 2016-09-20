@@ -278,7 +278,7 @@ public class EntityModelledChestCart extends EntityMinecartContainer implements 
 	@Override
 	public String getInventoryName()
     {
-        return this.hasCustomInventoryName() ? this.entityName : "entity.railcraft_cos.modelledchestcart." + Short.toString(this.getCustomCartType()) + ".name";
+        return this.hasCustomInventoryName() ? this.entityName : "entity.railcraft_cos.cart." + Short.toString(this.getCustomCartType()) + ".name";
     }
 	
 	public boolean isWood(ItemStack stack)
