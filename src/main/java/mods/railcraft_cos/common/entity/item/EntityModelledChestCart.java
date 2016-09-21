@@ -3,6 +3,7 @@ package mods.railcraft_cos.common.entity.item;
 import java.util.ArrayList;
 import java.util.List;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import mods.railcraft.common.util.inventory.InvTools;
 import mods.railcraft.common.util.misc.Game;
 import mods.railcraft_cos.common.items.ItemRailcraftCos;
@@ -101,6 +102,8 @@ public class EntityModelledChestCart extends EntityMinecartContainer implements 
 	        	return new ItemStack(ItemRailcraftCos.ModelledChestCartPanzer);
 	        case(5):
 	        	return new ItemStack(ItemRailcraftCos.ModelledChestCartContainer);
+	        case(6):
+	        	return new ItemStack(ItemRailcraftCos.ModelledChestCartTender);
 	        default:
 	        	return new ItemStack(ItemRailcraftCos.ModelledChestCartEmpty);
         }   	
@@ -167,6 +170,7 @@ public class EntityModelledChestCart extends EntityMinecartContainer implements 
         {
 	        case(0):
 	        case(2):
+	        case(6):
 	        	return 9;
 	        case(3):
 	        case(4):
@@ -215,17 +219,17 @@ public class EntityModelledChestCart extends EntityMinecartContainer implements 
         {
         	if (item != null)
         	{
-        		/*Item log = item.getItem();
-        		if (log == Item.getItemFromBlock(Blocks.log) || log == Item.getItemFromBlock(Blocks.log2) )
-        		{
-        			return true;
-        		}
-        		//needs to be added: Forestry woods etc.*/
         		return isWood(item);
         	}
+        	return false;       	
+        }
+        case(6):
+        {
+        	if (item != null && GameRegistry.getFuelValue(item) > 0)
+        	{
+        		return true;
+        	}
         	return false;
-        	
-        	
         }
         case(3):
         case(4):
@@ -258,6 +262,7 @@ public class EntityModelledChestCart extends EntityMinecartContainer implements 
         {
         	case(0):
         	case(2):
+        	case(6):
         		return SLOTS9;
         	case(3):
         	case(4):

@@ -30,6 +30,7 @@ public final class ItemRailcraftCos
 	public static ItemModelled ModelledChestCartEmpty;
 	public static ItemModelled ModelledChestCartPanzer;
 	public static ItemModelled ModelledChestCartContainer;
+	public static ItemModelled ModelledChestCartTender;
 	
 	public static ArmorMaterial WOOL = EnumHelper.addArmorMaterial("WOOL_ARMOR", 5, new int[] {1, 3, 2, 1}, 15);
 
@@ -45,6 +46,7 @@ public final class ItemRailcraftCos
 		ModelledChestCartEmpty = new ItemModelled("cart.modelled.empty", (short) 3);
 		ModelledChestCartPanzer = new ItemModelled("cart.modelled.panzer", (short) 4);
 		ModelledChestCartContainer = new ItemModelled("cart.modelled.container", (short) 5);
+		ModelledChestCartTender = new ItemModelled("cart.modelled.tender", (short) 6);
 		TrainOperatorCap = new TrainOperatorUniform("train_operator_cap", WOOL, "train_operator_cap", 0);
 		TrainOperatorChest = new TrainOperatorUniform("train_operator_chest", WOOL, "TrainOperator_layer_1", 1);
 		TrainOperatorLegs = new TrainOperatorUniform("train_operator_legs", WOOL, "TrainOperator_layer_2", 2);
@@ -69,6 +71,7 @@ public final class ItemRailcraftCos
 		GameRegistry.registerItem(ModelledChestCartEmpty, ModelledChestCartEmpty.getUnlocalizedName());
 		GameRegistry.registerItem(ModelledChestCartPanzer, ModelledChestCartPanzer.getUnlocalizedName());
 		GameRegistry.registerItem(ModelledChestCartContainer, ModelledChestCartContainer.getUnlocalizedName());
+		GameRegistry.registerItem(ModelledChestCartTender, ModelledChestCartTender.getUnlocalizedName());
 		
 		OreDictionary.registerOre("minecartWheelsIron", Wheels);
 	}

@@ -48,6 +48,7 @@ public class ItemModelled extends Item implements IMinecartItem
             		case(3):
             		case(4):
             		case(5):
+            		case(6):
             		{
             			int rand = new Random().nextInt(9);
             			EntityModelledChestCart entityminecart = new EntityModelledChestCart(world, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), type, rand);                        
@@ -100,6 +101,7 @@ public class ItemModelled extends Item implements IMinecartItem
         		case(3):
         		case(4):
         		case(5):
+        		case(6):
         		{
         			int rand = new Random().nextInt(9);
         			EntityModelledChestCart cart = new EntityModelledChestCart(world, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), type, rand);                        

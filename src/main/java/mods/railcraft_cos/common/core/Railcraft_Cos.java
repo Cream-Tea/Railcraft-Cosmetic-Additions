@@ -8,6 +8,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.railcraft_cos.common.blocks.BlockRailcraftCos;
+import mods.railcraft_cos.common.blocks.RenderConnectAllowedBlocks;
 import mods.railcraft_cos.common.events.RCCosEventHandler;
 import mods.railcraft_cos.common.items.ItemRailcraftCos;
 import net.minecraft.creativetab.CreativeTabs;
@@ -48,6 +49,7 @@ public class Railcraft_Cos {
 		BlockRailcraftCos.init();
 		RCCosEventHandler.init();
 		RCCosRecipes.init();
+		RenderConnectAllowedBlocks.init();
 		proxy.registerRendering();
 	}
 }

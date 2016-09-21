@@ -13,6 +13,7 @@ import mods.railcraft_cos.common.models.CosCartModelBase;
 import mods.railcraft_cos.common.models.CosCartPanzer;
 import mods.railcraft_cos.common.models.CosCartQuarry;
 import mods.railcraft_cos.common.models.CosCartTanker;
+import mods.railcraft_cos.common.models.CosCartTender;
 import mods.railcraft_cos.common.models.CosCartWoodFull;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -54,7 +55,8 @@ public class RenderModelledCartCustom extends RenderMinecart
     		new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.woodfull.png"),
     		new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.empty.png"),
     		new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.panzer.png"),
-    		new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.container.0.png")
+    		new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.container.0.png"),
+    		new ResourceLocation(Railcraft_Cos.MODID, "textures/entities/coscart.tender.png")
     	};    
     private CosCartModelBase modelMinecart[] = 
     	{	new CosCartQuarry(),
@@ -62,7 +64,8 @@ public class RenderModelledCartCustom extends RenderMinecart
     		new CosCartWoodFull(),
     		new CosCartEmpty(), 
     		new CosCartPanzer(), 
-    		new CosCartContainer()
+    		new CosCartContainer(),
+    		new CosCartTender()
     	};
     protected final RenderBlocks field_94145_f;
 
