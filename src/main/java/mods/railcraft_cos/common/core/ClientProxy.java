@@ -34,6 +34,7 @@ public class ClientProxy extends CommonProxy {
 	{
 		railcraftPlatformRenderer = RenderingRegistry.getNextAvailableRenderId();
 		railcraftCosTrackRenderer = RenderingRegistry.getNextAvailableRenderId();
+		
 		RenderingRegistry.registerBlockHandler(railcraftPlatformRenderer, new RailcraftPlatformRenderer());
 		RenderingRegistry.registerBlockHandler(railcraftCosTrackRenderer, new RailcraftCosTrackRenderer());
 		RenderingRegistry.registerEntityRenderingHandler(EntityModelledChestCart.class, new RenderModelledCartCustom());
@@ -41,6 +42,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRailcraftCosSignalBlock.class, new TESRCosSignalBase());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRailcraftCosSignalDistant.class, new TESRCosSignalBase());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRailcraftSignBasic.class, new TESRSignBasic());
+		//ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPlatform.class, new RenderPlatform());
 		
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockRailcraftCos.SignalBanner),
 				(IItemRenderer) new ItemRendererRailcraftCosSignalBase(EnumCosSignalType.BANNER_REPEATER));

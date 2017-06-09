@@ -30,13 +30,6 @@ public class Railcraft_Cos {
 	    public Item getTabIconItem() {
 	        return Item.getItemFromBlock(BlockRailcraftCos.SignalSemaphore);
 	    }
-
-	    @Override
-	    @SideOnly(Side.CLIENT)
-	    public int func_151243_f()
-	    {
-	        return 0;
-	    }
 	};
 	
 	@SidedProxy(clientSide="mods.railcraft_cos.common.core.ClientProxy", serverSide="mods.railcraft_cos.common.core.CommonProxy")

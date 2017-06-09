@@ -17,7 +17,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class EntityModelledChestCart extends EntityMinecartContainer implements ISidedInventory
+public class EntityModelledChestCart extends EntityMinecartContainer implements ISidedInventory/*, ILinkableCart*/
 {	
     private String entityName;
     private short cart;
@@ -305,6 +305,59 @@ public class EntityModelledChestCart extends EntityMinecartContainer implements 
     	}    	
     	return isIn;
     }
-	
-    
+	/*
+	@Override
+	public float getOptimalDistance(EntityMinecart cart)
+	{
+		switch(this.getCustomCartType())
+		{
+			case(6):
+				return 0.7F;
+			default: 
+				return 0.9F;
+		}
+	}
+
+	@Override
+	public boolean isLinkable() 
+	{
+		return true;
+	}
+
+	@Override
+	public boolean canLinkWithCart(EntityMinecart cart) 
+	{
+		return true;		
+	}
+
+	@Override
+	public boolean hasTwoLinks() 
+	{
+		return true;
+	}
+
+	@Override
+	public float getLinkageDistance(EntityMinecart paramEntityMinecart) 
+	{
+		switch(this.getCustomCartType())
+		{
+			case(6):
+				return 1.0F;
+			default: 
+				return 1.25F;
+		}		
+	}
+
+	@Override
+	public boolean canBeAdjusted(EntityMinecart paramEntityMinecart) 
+	{		 
+		return false;	
+	}
+
+	@Override
+	public void onLinkCreated(EntityMinecart paramEntityMinecart) {}
+
+	@Override
+	public void onLinkBroken(EntityMinecart paramEntityMinecart) {}	
+    */
 }
