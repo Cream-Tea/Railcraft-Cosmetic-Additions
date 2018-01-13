@@ -1,0 +1,40 @@
+itemGroup.tabRailcraftCos=Railcraft Cosmetic Additions
+
+tile.signalbanner.name=Ретранслятор баннерів
+tile.signalsemaphore.name=Стандартний семафор
+tile.signalsemaphorerepeater.name=Повторювач семафорів
+tile.signalsemaphorerepeateralt.name=Стандартний семафор (циклічний)
+tile.sign.whistle.name=Знак свистку
+tile.sign.mph5.name=Знак обмеження швидкості
+tile.sign.clearance.name=Знак обмеження кордону
+tile.sign.refuge.name=Знак безпечної зони
+tile.sign.shunt.name=Знак обмеженого шунтуючого сигналу
+tile.platform.floor.name=Залізнична платформа
+tile.platform.edge.name=Край залізничної платформи
+tile.platform.edge.line.name=Край залізничної платформи с обмежувальною лінією
+tile.platform.transition.name=Перехід на залізничну платформу
+tile.track.grass.name=Колія з травою
+tile.track.cobweb.name=Колія з павутинням
+
+item.semaphore.arm.name=Сигнальний важіль
+item.sign.blank.name=Порожній знак
+item.train_operator_cap.name=Кашкет оператора поїздів
+item.train_operator_chest.name=Нагрудник оператора поїздів
+item.train_operator_legs.name=Штани оператора поїздів
+item.train_operator_boots.name=Чоботи оператора поїздів
+item.whistle.name=Свисток
+item.wheels.name=Колеса вагону
+item.cart.modelled.quarry.name=Промисловий вагон
+item.cart.modelled.liquid.name=Вагон з танкером
+item.cart.modelled.wood.name=Вагон для колод
+item.cart.modelled.empty.name=Плаский вагон
+item.cart.modelled.panzer.name=Танковий вагон
+item.cart.modelled.container.name=Вагон з контейнером
+
+entity.railcraft_cos.modelledtankcart.name=Вагон з танкером
+entity.railcraft_cos.cart.0.name=Промисловий вагон
+entity.railcraft_cos.cart.2.name=Вагон для колод
+entity.railcraft_cos.cart.3.name=Плаский вагон
+entity.railcraft_cos.cart.4.name=Танковий вагон
+entity.railcraft_cos.cart.5.name=Вагон з контейнером
+entity.railcraft_cos.modelledchestcart.name=Вагонетка
