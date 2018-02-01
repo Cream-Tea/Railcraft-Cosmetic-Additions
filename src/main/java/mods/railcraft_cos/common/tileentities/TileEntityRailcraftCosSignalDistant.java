@@ -96,7 +96,7 @@ public class TileEntityRailcraftCosSignalDistant extends TileEntity implements I
 	public ResourceLocation getResource() {
 		switch(getSignalType()) {
 		case BANNER_REPEATER:
-			if(!getState()) {
+			if(getState()) {
 				return textureArray[0];
 			} else {
 				return textureArray[1];
