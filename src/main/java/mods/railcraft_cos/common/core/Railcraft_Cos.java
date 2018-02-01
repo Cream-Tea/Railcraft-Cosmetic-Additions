@@ -18,7 +18,7 @@ import net.minecraft.item.Item;
 public class Railcraft_Cos {
 	public static final String MODID = "railcraft_cos";
 	public static final String MODNAME = "Railcraft Cosmetic Additions";
-	public static final String MODVER = "2.1.2";
+	public static final String MODVER = "2.1.3";
 	
 	@Instance("railcraft_cos")
 	public static Railcraft_Cos instance;
