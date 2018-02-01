@@ -1,3 +1,5 @@
+itemGroup.tabRailcraftCos=Railcraft Cosmetic Additions
+
 tile.signalbanner.name=Banner Repeater
 tile.signalsemaphore.name=Semaphore Standard
 tile.signalsemaphorerepeater.name=Semaphore Repeater
@@ -13,6 +15,7 @@ tile.platform.edge.line.name=Platform Edge With Line
 tile.platform.transition.name=Platform Transition
 tile.track.grass.name=Grass Track
 tile.track.cobweb.name=Cobweb Track
+
 item.semaphore.arm.name=Signal Arm
 item.sign.blank.name=Blank Sign
 item.train_operator_cap.name=Train Operator Cap
@@ -27,10 +30,11 @@ item.cart.modelled.wood.name=Wood Cart
 item.cart.modelled.empty.name=Flat Cart
 item.cart.modelled.panzer.name=Panzer Cart
 item.cart.modelled.container.name=Container Cart
-itemGroup.tabRailcraftCos=Railcraft Cosmetic Additions
+
 entity.railcraft_cos.modelledtankcart.name=Tanker Cart
 entity.railcraft_cos.cart.0.name=Quarry Cart
 entity.railcraft_cos.cart.2.name=Wood Cart
 entity.railcraft_cos.cart.3.name=Flat Cart
 entity.railcraft_cos.cart.4.name=Panzer Cart
 entity.railcraft_cos.cart.5.name=Container Cart
+entity.railcraft_cos.modelledchestcart.name=Chest Cart
