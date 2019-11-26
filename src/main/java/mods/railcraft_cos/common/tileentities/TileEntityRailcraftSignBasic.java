@@ -1,5 +1,4 @@
 package mods.railcraft_cos.common.tileentities;
-
 import mods.railcraft_cos.common.blocks.BlockRailcraftSignBasic;
 import mods.railcraft_cos.common.blocks.EnumSignBasicType;
 import mods.railcraft_cos.common.core.Railcraft_Cos;
@@ -16,7 +15,9 @@ public class TileEntityRailcraftSignBasic extends TileEntity {
 	}
 	
 	public ResourceLocation getResource() {
-		switch(getSignType()) {
+		try {
+			switch(getSignType())
+			{
 		case WHISTLE:
 			return new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossign.whistle.png");
 		case MPH5:
@@ -28,6 +29,10 @@ public class TileEntityRailcraftSignBasic extends TileEntity {
 		case SHUNT:
 			return new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossign.shunt.png");
 		default:
+			return null;
+		}
+		}
+		catch (ClassCastException e) {
 			return null;
 		}
 	}

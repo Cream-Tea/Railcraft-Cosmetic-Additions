@@ -16,29 +16,38 @@ public class ItemRendererRailcraftCosSignalBase implements IItemRenderer {
 
 	private float scale = 1.2F;
 	private ModelBase model;
+	private static ModelBase modelArray[] = 
+			{	new CosSignalBannerModel(),
+				new CosSignalSemaphoreModel(0, 0)	
+			};
 	private ResourceLocation texture;
+	private ResourceLocation textureArray[] =
+			{	new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalbanner.png"),
+				new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalsemaphore.png"),
+				new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalsemaphoredistant.png")
+			};
 	
 	public ItemRendererRailcraftCosSignalBase(EnumCosSignalType type) {
 		switch(type) {
 		case BANNER_REPEATER:
-			model = new CosSignalBannerModel();
-			texture = new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalbanner.png");
+			model = modelArray[0];
+			texture = textureArray[0];
 			break;
 		case SEMAPHORE_STOP:
-			model = new CosSignalSemaphoreModel(0, 0);
-			texture = new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalsemaphore.png");
+			model = modelArray[1];
+			texture = textureArray[1];
 			break;
 		case SEMAPHORE_REPEATER:
-			model = new CosSignalSemaphoreModel(0, 0);
-			texture = new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalsemaphoredistant.png");
+			model = modelArray[1];
+			texture = textureArray[2];
 			break;
 		case SEMAPHORE_REPEATER_ALT:
-			model = new CosSignalSemaphoreModel(0, 0);
-			texture = new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalsemaphore.png");
+			model = modelArray[1];
+			texture = textureArray[1];
 			break;
 		default:
-			model = new CosSignalSemaphoreModel(0, 0);
-			texture = new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalsemaphore.png");
+			model = modelArray[1];
+			texture = textureArray[1];
 		}
 	}
 	

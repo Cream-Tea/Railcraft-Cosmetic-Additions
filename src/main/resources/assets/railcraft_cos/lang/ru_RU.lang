@@ -1,0 +1,40 @@
+itemGroup.tabRailcraftCos=Railcraft Cosmetic Additions
+
+tile.signalbanner.name=Ретранслятор баннеров
+tile.signalsemaphore.name=Стандартный семафор
+tile.signalsemaphorerepeater.name=Повторитель семафоров
+tile.signalsemaphorerepeateralt.name=Стандартный семафор (повторяющийся)
+tile.sign.whistle.name=Знак свистка
+tile.sign.mph5.name=Знак ограничителя скорости
+tile.sign.clearance.name=Знак ограничения границы
+tile.sign.refuge.name=Знак безопасной зоны
+tile.sign.shunt.name=Знак ограниченного шунтирующего сигнала
+tile.platform.floor.name=Железнодорожная платформа
+tile.platform.edge.name=Край железнодорожной платформы
+tile.platform.edge.line.name=Край железнодорожной платформы с ограничительной линией
+tile.platform.transition.name=Переход на железнодорожную платформу
+tile.track.grass.name=Путь с травой
+tile.track.cobweb.name=Путь с паутиной
+
+item.semaphore.arm.name=Сигнальный рычаг
+item.sign.blank.name=Чистый знак
+item.train_operator_cap.name=Фуражка оператора поездов
+item.train_operator_chest.name=Нагрудник оператора поездов
+item.train_operator_legs.name=Штаны оператора поездов
+item.train_operator_boots.name=Ботинки оператора поездов
+item.whistle.name=Свисток
+item.wheels.name=Колёса вагона
+item.cart.modelled.quarry.name=Промышленный вагон
+item.cart.modelled.liquid.name=Вагон с танкером
+item.cart.modelled.wood.name=Вагон для брёвен
+item.cart.modelled.empty.name=Плоский вагон
+item.cart.modelled.panzer.name=Танковый вагон
+item.cart.modelled.container.name=Вагон с контейнером
+
+entity.railcraft_cos.modelledtankcart.name=Вагон с танкером
+entity.railcraft_cos.cart.0.name=Промышленный вагон
+entity.railcraft_cos.cart.2.name=Вагон для брёвен
+entity.railcraft_cos.cart.3.name=Плоский вагон
+entity.railcraft_cos.cart.4.name=Танковый вагон
+entity.railcraft_cos.cart.5.name=Вагон с контейнером
+entity.railcraft_cos.modelledchestcart.name=Вагонетка

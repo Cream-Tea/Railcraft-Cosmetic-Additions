@@ -1,118 +1,136 @@
 package mods.railcraft_cos.common.items;
 
+import java.util.Random;
+
+import com.mojang.authlib.GameProfile;
+
+import mods.railcraft.api.carts.CartTools;
+import mods.railcraft.api.core.items.IMinecartItem;
+import mods.railcraft.common.blocks.tracks.TrackTools;
 import mods.railcraft_cos.common.core.Railcraft_Cos;
 import mods.railcraft_cos.common.entity.item.EntityModelledChestCart;
+import mods.railcraft_cos.common.entity.item.EntityModelledTankCart;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
-import net.minecraft.block.BlockRailBase;
-import net.minecraft.block.material.Material;
-import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
-import net.minecraft.dispenser.IBehaviorDispenseItem;
-import net.minecraft.dispenser.IBlockSource;
+import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-public class ItemModelled extends Item {
-
-	private short type = 0;
-	
-	private static final IBehaviorDispenseItem dispenserMinecartBehavior = new BehaviorDefaultDispenseItem()
-    {
-        private final BehaviorDefaultDispenseItem behaviourDefaultDispenseItem = new BehaviorDefaultDispenseItem();
-        /**
-         * Dispense the specified stack, play the dispense sound and spawn particles.
-         */
-        public ItemStack dispenseStack(IBlockSource p_82487_1_, ItemStack p_82487_2_)
-        {
-            EnumFacing enumfacing = BlockDispenser.func_149937_b(p_82487_1_.getBlockMetadata());
-            World world = p_82487_1_.getWorld();
-            double d0 = p_82487_1_.getX() + (double)((float)enumfacing.getFrontOffsetX() * 1.125F);
-            double d1 = p_82487_1_.getY() + (double)((float)enumfacing.getFrontOffsetY() * 1.125F);
-            double d2 = p_82487_1_.getZ() + (double)((float)enumfacing.getFrontOffsetZ() * 1.125F);
-            int i = p_82487_1_.getXInt() + enumfacing.getFrontOffsetX();
-            int j = p_82487_1_.getYInt() + enumfacing.getFrontOffsetY();
-            int k = p_82487_1_.getZInt() + enumfacing.getFrontOffsetZ();
-            Block block = world.getBlock(i, j, k);
-            double d3;
-
-            if (BlockRailBase.func_150051_a(block))
-            {
-                d3 = 0.0D;
-            }
-            else
-            {
-                if (block.getMaterial() != Material.air || !BlockRailBase.func_150051_a(world.getBlock(i, j - 1, k)))
-                {
-                    return this.behaviourDefaultDispenseItem.dispense(p_82487_1_, p_82487_2_);
-                }
-
-                d3 = -1.0D;
-            }
-
-            //Hadn't touched Java in months and was really rusty so just decided to leave it as the default cart.
-            EntityModelledChestCart entityminecart = new EntityModelledChestCart(world, d0, d1 + d3, d2, (short) 0);
-            //---------------------------------------------------------------------------------------------------
-
-            if (p_82487_2_.hasDisplayName())
-            {
-                entityminecart.setMinecartName(p_82487_2_.getDisplayName());
-            }
-
-            world.spawnEntityInWorld(entityminecart);
-            p_82487_2_.splitStack(1);
-            return p_82487_2_;
-        }
-        /**
-         * Play the dispense sound from the specified block.
-         */
-        protected void playDispenseSound(IBlockSource p_82485_1_)
-        {
-            p_82485_1_.getWorld().playAuxSFX(1000, p_82485_1_.getXInt(), p_82485_1_.getYInt(), p_82485_1_.getZInt(), 0);
-        }
-    };
-    
+public class ItemModelled extends Item implements IMinecartItem
+{
+	private short type;    
     public int minecartType;
 
-    public ItemModelled(String unlocalizedname, short Type) {
-    	this.type = Type;
-        this.maxStackSize = 1;
+    public ItemModelled(String unlocalizedName, short cartType) 
+    {
+    	this.type = cartType;
+        this.maxStackSize = 3;
         this.minecartType = -1;
         this.setCreativeTab(Railcraft_Cos.tabRailcraftCos);
-        this.setUnlocalizedName(unlocalizedname);
+        this.setUnlocalizedName(unlocalizedName);
         this.setTextureName(Railcraft_Cos.MODID + ":" + "cart.modelled." + Short.toString(type));
-        BlockDispenser.dispenseBehaviorRegistry.putObject(this, dispenserMinecartBehavior);
-        
+        BlockDispenser.dispenseBehaviorRegistry.putObject(this, null);        
     }
 
-    /**
-     * Callback for item usage. If the item does something special on right clicking, he will have one of those. Return
-     * True if something happen and false if it don't. This is for ITEMS, not BLOCKS
-     */
-    public boolean onItemUse(ItemStack p_77648_1_, EntityPlayer p_77648_2_, World p_77648_3_, int p_77648_4_, int p_77648_5_, int p_77648_6_, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_)
+    public boolean onItemUse(ItemStack item, EntityPlayer player, World world, int x, int y, int z, int side, float px, float py, float pz)
     {
-        if (BlockRailBase.func_150051_a(p_77648_3_.getBlock(p_77648_4_, p_77648_5_, p_77648_6_)))
+    	Block block = world.getBlock(x, y, z);
+        if (TrackTools.isRailBlock(block))
         {
-            if (!p_77648_3_.isRemote)
-            {
-                EntityModelledChestCart entityminecart = new EntityModelledChestCart(p_77648_3_, (double)((float)p_77648_4_ + 0.5F), (double)((float)p_77648_5_ + 0.5F), (double)((float)p_77648_6_ + 0.5F), type);
-
-                if (p_77648_1_.hasDisplayName())
-                {
-                    entityminecart.setMinecartName(p_77648_1_.getDisplayName());
-                }
-
-                p_77648_3_.spawnEntityInWorld(entityminecart);
-            }
-
-            --p_77648_1_.stackSize;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+            if (!world.isRemote)
+            {            	
+            	switch(type)
+            	{
+            		case(0):
+            		case(2):
+            		case(3):
+            		case(4):
+            		case(5):
+            		case(6):
+            		{
+            			int rand = new Random().nextInt(9);
+            			EntityModelledChestCart entityminecart = new EntityModelledChestCart(world, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), type, rand);                        
+            			if (item.hasDisplayName())
+                        {
+                            entityminecart.setMinecartName(item.getDisplayName());
+                        }
+                        world.spawnEntityInWorld(entityminecart);
+                        --item.stackSize;
+                        return true;
+            		}
+            		case(1):
+            		{
+            			int rand = new Random().nextInt(9);
+            			EntityModelledTankCart entitytankminecart = new EntityModelledTankCart(world, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), type, rand);                        
+            			if (item.hasDisplayName())
+                        {
+                            entitytankminecart.setMinecartName(item.getDisplayName());
+                        }
+                        world.spawnEntityInWorld(entitytankminecart);
+                        --item.stackSize;
+                        return true;
+            		}
+            		default:
+            		{
+            			return false;
+            		}            			
+            	}
+            }            
+        }        
+        return false;		
     }
+
+	@Override
+	public boolean canBePlacedByNonPlayer(ItemStack paramItemStack) 
+	{
+		return true;
+	}
+
+	@Override
+	public EntityMinecart placeCart(GameProfile owner, ItemStack item, World world, int x, int y, int z) 
+	{		
+	 	Block block = world.getBlock(x, y, z);
+	 	if ((TrackTools.isRailBlock(block)) && (!CartTools.isMinecartAt(world, x, y, z, 0.0F))) 
+		{
+	 		switch(type)
+            {
+        		case(0):
+        		case(2):
+        		case(3):
+        		case(4):
+        		case(5):
+        		case(6):
+        		{
+        			int rand = new Random().nextInt(9);
+        			EntityModelledChestCart cart = new EntityModelledChestCart(world, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), type, rand);                        
+        			if (item.hasDisplayName())
+                    {
+                        cart.setMinecartName(item.getDisplayName());
+                    }
+        			CartTools.setCartOwner(cart, owner);
+                    if (world.spawnEntityInWorld(cart))
+                    	return cart;
+        		}
+        		case(1):
+        		{
+        			int rand = new Random().nextInt(9);
+        			EntityModelledTankCart cart = new EntityModelledTankCart(world, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), type, rand);                        
+        			if (item.hasDisplayName())
+                    {
+                        cart.setMinecartName(item.getDisplayName());
+                    }
+        			CartTools.setCartOwner(cart, owner);
+                    if (world.spawnEntityInWorld(cart))	                       
+                    	return cart;
+        		}
+        		default:
+        		{
+        			return null;
+        		}            			
+            } 
+	    }
+		return null;
+	}
 }

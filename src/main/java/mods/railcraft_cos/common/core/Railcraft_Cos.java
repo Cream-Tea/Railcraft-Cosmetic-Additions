@@ -8,6 +8,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.railcraft_cos.common.blocks.BlockRailcraftCos;
+import mods.railcraft_cos.common.blocks.RenderConnectAllowedBlocks;
 import mods.railcraft_cos.common.events.RCCosEventHandler;
 import mods.railcraft_cos.common.items.ItemRailcraftCos;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,7 +18,7 @@ import net.minecraft.item.Item;
 public class Railcraft_Cos {
 	public static final String MODID = "railcraft_cos";
 	public static final String MODNAME = "Railcraft Cosmetic Additions";
-	public static final String MODVER = "2.0";
+	public static final String MODVER = "2.1.3";
 	
 	@Instance("railcraft_cos")
 	public static Railcraft_Cos instance;
@@ -28,13 +29,6 @@ public class Railcraft_Cos {
 	    @SideOnly(Side.CLIENT)
 	    public Item getTabIconItem() {
 	        return Item.getItemFromBlock(BlockRailcraftCos.SignalSemaphore);
-	    }
-
-	    @Override
-	    @SideOnly(Side.CLIENT)
-	    public int func_151243_f()
-	    {
-	        return 0;
 	    }
 	};
 	
@@ -48,6 +42,7 @@ public class Railcraft_Cos {
 		BlockRailcraftCos.init();
 		RCCosEventHandler.init();
 		RCCosRecipes.init();
+		RenderConnectAllowedBlocks.init();
 		proxy.registerRendering();
 	}
 }
