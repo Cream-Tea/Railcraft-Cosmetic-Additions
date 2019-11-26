@@ -33,9 +33,17 @@ public class TileEntityRailcraftCosSignalBlock extends TileEntity implements ICo
 	EnumCosSignalType signalType;
 	private boolean alternate;
 	private boolean quadrant;
-	
+	private ResourceLocation semaphoreTexture = new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalsemaphore.png");
 	private final SimpleSignalController controller = new SimpleSignalController(getLocalizationTag(), this);
 	private final SignalBlock signalBlock = new SignalBlockSimple(getLocalizationTag(), this);
+	private static ModelBase modelArray[] =
+		{	new CosSignalSemaphoreModel(0, 0),
+			new CosSignalSemaphoreModel(0, 1),
+			new CosSignalSemaphoreModel(-1, 0),
+			new CosSignalSemaphoreModel(-1, 1),
+			new CosSignalSemaphoreModel(1, 0),
+			new CosSignalSemaphoreModel(1, 1)				
+		};
 	
 	public boolean getState() {
 		return alternate;
@@ -86,7 +94,7 @@ public class TileEntityRailcraftCosSignalBlock extends TileEntity implements ICo
 	public ResourceLocation getResource() {
 		switch(getSignalType()) {
 		case SEMAPHORE_STOP:
-			return new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalsemaphore.png");
+			return semaphoreTexture;
 		default:
 			return null;
 		}
@@ -100,9 +108,33 @@ public class TileEntityRailcraftCosSignalBlock extends TileEntity implements ICo
 		case SEMAPHORE_STOP:
 			if(!getState()) 
 			{
-				return new CosSignalSemaphoreModel(0, ySize);
-			} else {
-				return new CosSignalSemaphoreModel(quad, ySize);
+				if (ySize == 1) 
+				{
+					return modelArray[1];						
+				}
+				else 
+				{
+					return modelArray[0];
+				}
+			} 
+			else 
+			{
+				if (ySize == 1 && quad == -1)
+				{
+					return modelArray[3];
+				}
+				else if (ySize == 1 && quad == 1)
+				{
+					return modelArray[5];
+				}
+				else if (ySize == 0 && quad == -1)
+				{
+					return modelArray[2];
+				}
+				else
+				{
+					return modelArray[4];
+				}
 			}
 		default:
 			return null;

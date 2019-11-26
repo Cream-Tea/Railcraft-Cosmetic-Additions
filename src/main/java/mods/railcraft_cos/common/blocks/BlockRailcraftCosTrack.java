@@ -15,13 +15,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class BlockRailcraftCosTrack extends BlockRailBase
-{
-	
-	public BlockRailcraftCosTrack(String unlocalizedname, boolean b) 
+{	
+	public BlockRailcraftCosTrack(String unlocalizedName, boolean powered) 
 	{
-		super(false);
-		setBlockName(unlocalizedname);
-		setBlockTextureName(Railcraft_Cos.MODID + ":" + "track.grass");
+		super(powered);
+		setBlockName(unlocalizedName);
+		setBlockTextureName(Railcraft_Cos.MODID + ":" + unlocalizedName);
 		setResistance(3.0F);
 	}
 	

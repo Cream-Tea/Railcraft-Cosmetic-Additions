@@ -29,6 +29,21 @@ public class TileEntityRailcraftCosSignalDistant extends TileEntity implements I
 	
 	private boolean alternate;
 	private boolean quadrant;
+	private static ResourceLocation textureArray[] =
+		{	new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalbanner.png"),
+			new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalbanneralt.png"),
+			new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalsemaphore.png"),
+			new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalsemaphoredistant.png")
+		};
+	private static ModelBase modelArray[] =
+		{	new CosSignalBannerModel(),
+			new CosSignalSemaphoreModel(0, 0),
+			new CosSignalSemaphoreModel(0, 1),
+			new CosSignalSemaphoreModel(-1, 0),
+			new CosSignalSemaphoreModel(-1, 1),
+			new CosSignalSemaphoreModel(1, 0),
+			new CosSignalSemaphoreModel(1, 1)				
+		};
 	
 	private final SimpleSignalReceiver receiver = new SimpleSignalReceiver("Distant Signal", this);
 	
@@ -81,15 +96,15 @@ public class TileEntityRailcraftCosSignalDistant extends TileEntity implements I
 	public ResourceLocation getResource() {
 		switch(getSignalType()) {
 		case BANNER_REPEATER:
-			if(!getState()) {
-				return new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalbanner.png");
+			if(getState()) {
+				return textureArray[0];
 			} else {
-				return new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalbanneralt.png");
+				return textureArray[1];
 			}
 		case SEMAPHORE_REPEATER:
-			return new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalsemaphoredistant.png");
+			return textureArray[3];
 		case SEMAPHORE_REPEATER_ALT:
-			return new ResourceLocation(Railcraft_Cos.MODID, "textures/tesr/cossignalsemaphore.png");
+			return textureArray[2];
 		default:
 			return null;
 		}
@@ -100,24 +115,69 @@ public class TileEntityRailcraftCosSignalDistant extends TileEntity implements I
 		int quad = getQuadrant() ? 1 : -1;
 		int ySize = getBlocksAround();
 		switch(getSignalType()) 
-			{	case BANNER_REPEATER: return new CosSignalBannerModel();
+			{	case BANNER_REPEATER: return modelArray[0];
 				case SEMAPHORE_REPEATER:
 					if(!getState()) 
 					{
-						return new CosSignalSemaphoreModel(0, ySize);
+						if (ySize == 1) 
+						{
+							return modelArray[2];						
+						}
+						else 
+						{
+							return modelArray[1];
+						}
+						
 					} 
 					else 
 					{
-						return new CosSignalSemaphoreModel(quad, ySize);
+						if (ySize == 1 && quad == -1)
+						{
+							return modelArray[4];
+						}
+						else if (ySize == 1 && quad == 1)
+						{
+							return modelArray[6];
+						}
+						else if (ySize == 0 && quad == -1)
+						{
+							return modelArray[3];
+						}
+						else
+						{
+							return modelArray[5];
+						}
 					}
 				case SEMAPHORE_REPEATER_ALT:
 					if(!getState()) 
 					{
-						return new CosSignalSemaphoreModel(0, ySize);
+						if (ySize == 1) 
+						{
+							return modelArray[2];						
+						}
+						else 
+						{
+							return modelArray[1];
+						}
 					} 
 					else 
 					{
-						return new CosSignalSemaphoreModel(quad, ySize);
+						if (ySize == 1 && quad == -1)
+						{
+							return modelArray[4];
+						}
+						else if (ySize == 1 && quad == 1)
+						{
+							return modelArray[6];
+						}
+						else if (ySize == 0 && quad == -1)
+						{
+							return modelArray[3];
+						}
+						else
+						{
+							return modelArray[5];
+						}
 					}
 				default: return null;
 		}

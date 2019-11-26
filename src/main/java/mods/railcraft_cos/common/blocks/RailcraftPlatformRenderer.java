@@ -6,10 +6,7 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import mods.railcraft.common.blocks.aesthetics.post.BlockPostBase;
 import mods.railcraft_cos.common.core.ClientProxy;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockSign;
-import net.minecraft.block.BlockSkull;
-import net.minecraft.block.BlockWall;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
@@ -17,8 +14,7 @@ import net.minecraft.world.IBlockAccess;
 
 public class RailcraftPlatformRenderer implements ISimpleBlockRenderingHandler {
 	
-	private final Tessellator tessellator = Tessellator.instance;
-
+	private final Tessellator tessellator = Tessellator.instance; 
 	
 	public RailcraftPlatformRenderer() {
 		Minecraft.getMinecraft();
@@ -312,20 +308,23 @@ public class RailcraftPlatformRenderer implements ISimpleBlockRenderingHandler {
 	public boolean checkBlockAbove(IBlockAccess world, int x,int y,int z)
 	{
 		Block block = world.getBlock(x, y+1, z);
-		Block blockAbove = world.getBlock(x, y+2, z);
-		if (block instanceof BlockFence) return true;
-		else if ((block instanceof BlockPostBase) && (blockAbove instanceof BlockPostBase)) return true;
-		else if (block instanceof BlockRailcraftSignBasic) return true;
-		else if (block instanceof BlockRailcraftCosSignalBase) return true;
-		else if ((block instanceof BlockSign) && Block.getIdFromBlock(block) == 63) return true;
-		else return false;
+		Block blockAbove = world.getBlock(x, y+2, z);		
+		if ((block instanceof BlockPostBase) && (blockAbove instanceof BlockPostBase)) 
+			return true;
+		else if (RenderConnectAllowedBlocks.fenceAllowed.contains(block.getClass().getName()))
+			return true;
+		else if ((block instanceof BlockSign) && Block.getIdFromBlock(block) == 63) 
+			return true;
+		else 
+			return false;
 	}
 	
 	public boolean checkBlockAboveForWall(IBlockAccess world, int x,int y,int z)
 	{
 		Block block = world.getBlock(x, y+1, z);
-		if (block instanceof BlockWall) return true;
-		else if (block instanceof BlockSkull) return true;
-		else return false;
+		if (RenderConnectAllowedBlocks.wallAllowed.contains(block.getClass().getName())) 
+			return true;
+		else 
+			return false;
 	}
 }
